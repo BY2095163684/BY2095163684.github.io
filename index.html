@@ -69,6 +69,49 @@
       <div class="outer">
         <section id="main">
   
+    <article id="post-Matplotlib-II" class="h-entry article article-type-post" itemprop="blogPost" itemscope itemtype="https://schema.org/BlogPosting">
+  <div class="article-meta">
+    <a href="/2024/07/21/Matplotlib-II/" class="article-date">
+  <time class="dt-published" datetime="2024-07-21T08:58:52.000Z" itemprop="datePublished">2024-07-21</time>
+</a>
+    
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="p-name article-title" href="/2024/07/21/Matplotlib-II/">Matplotlib(II)</a>
+    </h1>
+  
+
+      </header>
+    
+    <div class="e-content article-entry" itemprop="articleBody">
+      
+        <p>一些常用的图像绘制</p>
+<h4 id="准备数据"><a href="#准备数据" class="headerlink" title="准备数据"></a>准备数据</h4><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">x, y = [], []</span><br></pre></td></tr></table></figure>
+<h4 id="散点图-scatter"><a href="#散点图-scatter" class="headerlink" title="散点图(scatter)"></a>散点图(scatter)</h4><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">plt.scatter(x,y)</span><br></pre></td></tr></table></figure>
+<h4 id="柱状图-bar"><a href="#柱状图-bar" class="headerlink" title="柱状图(bar)"></a>柱状图(bar)</h4><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">plt.bar(x,y,width=<span class="number">0.2</span>)</span><br><span class="line"><span class="comment"># 一个刻度两类对比,再画一个</span></span><br><span class="line">z = []</span><br><span class="line">plt.bar([i+<span class="number">0.2</span> <span class="keyword">for</span> i <span class="keyword">in</span> x],z,width=<span class="number">0.2</span>)</span><br></pre></td></tr></table></figure>
+<h4 id="直方图-histogram"><a href="#直方图-histogram" class="headerlink" title="直方图(histogram)"></a>直方图(histogram)</h4><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">plt.hist(x,bins= ,density=<span class="literal">True</span>)  <span class="comment"># bins=组数=极差/组距, density是否显示频率</span></span><br></pre></td></tr></table></figure>
+<h4 id="饼图-pie"><a href="#饼图-pie" class="headerlink" title="饼图(pie)"></a>饼图(pie)</h4><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">plt.pie(x,color=<span class="string">&#x27;&#x27;</span>,autopct=<span class="string">&#x27;%1.2f%%&#x27;</span>)     <span class="comment"># %1.2f%%百分号保留两位</span></span><br><span class="line">plt.axis(<span class="string">&#x27;equal&#x27;</span>)   <span class="comment"># 保持圆形</span></span><br></pre></td></tr></table></figure>
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="http://by2095163684.github.io/2024/07/21/Matplotlib-II/" data-id="clyvburxn0002dsve5pz2eovq" data-title="Matplotlib(II)" class="article-share-link"><span class="fa fa-share">分享</span></a>
+      
+      
+      
+    </footer>
+  </div>
+  
+</article>
+
+
+
+  
     <article id="post-Matplotlib-I" class="h-entry article article-type-post" itemprop="blogPost" itemscope itemtype="https://schema.org/BlogPosting">
   <div class="article-meta">
     <a href="/2024/07/20/Matplotlib-I/" class="article-date">
@@ -111,7 +154,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://by2095163684.github.io/2024/07/20/Matplotlib-I/" data-id="clyucjth70001zgvehwdzgi1u" data-title="Matplotlib(I)" class="article-share-link"><span class="fa fa-share">分享</span></a>
+      <a data-url="http://by2095163684.github.io/2024/07/20/Matplotlib-I/" data-id="clyvburxg0000dsve7gy37aua" data-title="Matplotlib(I)" class="article-share-link"><span class="fa fa-share">分享</span></a>
       
       
       
@@ -171,7 +214,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://by2095163684.github.io/2024/07/19/Jupyter-Notebook/" data-id="clyucjth40000zgvedvim6gjw" data-title="Jupyter Notebook" class="article-share-link"><span class="fa fa-share">分享</span></a>
+      <a data-url="http://by2095163684.github.io/2024/07/19/Jupyter-Notebook/" data-id="clyvburxm0001dsve3pddb7qi" data-title="Jupyter Notebook" class="article-share-link"><span class="fa fa-share">分享</span></a>
       
       
       
@@ -210,7 +253,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://by2095163684.github.io/2024/07/18/%E9%85%8D%E7%BD%AEAnaconda%E8%99%9A%E6%8B%9F%E7%8E%AF%E5%A2%83/" data-id="clyucjth90003zgve3nei4zhi" data-title="配置Anaconda虚拟环境" class="article-share-link"><span class="fa fa-share">分享</span></a>
+      <a data-url="http://by2095163684.github.io/2024/07/18/%E9%85%8D%E7%BD%AEAnaconda%E8%99%9A%E6%8B%9F%E7%8E%AF%E5%A2%83/" data-id="clyvburxo0004dsvea3s15vz7" data-title="配置Anaconda虚拟环境" class="article-share-link"><span class="fa fa-share">分享</span></a>
       
       
       
@@ -249,7 +292,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://by2095163684.github.io/2024/07/17/My-Blog-Test/" data-id="clyucjth80002zgve0eur3gw9" data-title="My Blog Test" class="article-share-link"><span class="fa fa-share">分享</span></a>
+      <a data-url="http://by2095163684.github.io/2024/07/17/My-Blog-Test/" data-id="clyvburxo0003dsvea06abfjx" data-title="My Blog Test" class="article-share-link"><span class="fa fa-share">分享</span></a>
       
       
       
@@ -290,6 +333,10 @@
     <h3 class="widget-title">最新文章</h3>
     <div class="widget">
       <ul>
+        
+          <li>
+            <a href="/2024/07/21/Matplotlib-II/">Matplotlib(II)</a>
+          </li>
         
           <li>
             <a href="/2024/07/20/Matplotlib-I/">Matplotlib(I)</a>
