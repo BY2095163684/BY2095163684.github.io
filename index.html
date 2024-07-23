@@ -69,6 +69,50 @@
       <div class="outer">
         <section id="main">
   
+    <article id="post-Numpy-II" class="h-entry article article-type-post" itemprop="blogPost" itemscope itemtype="https://schema.org/BlogPosting">
+  <div class="article-meta">
+    <a href="/2024/07/23/Numpy-II/" class="article-date">
+  <time class="dt-published" datetime="2024-07-23T10:11:40.000Z" itemprop="datePublished">2024-07-23</time>
+</a>
+    
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="p-name article-title" href="/2024/07/23/Numpy-II/">Numpy(II)</a>
+    </h1>
+  
+
+      </header>
+    
+    <div class="e-content article-entry" itemprop="articleBody">
+      
+        <p>Numpy的本职,各种运算</p>
+<h4 id="逻辑运算"><a href="#逻辑运算" class="headerlink" title="逻辑运算"></a>逻辑运算</h4><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><span class="line">arr = np.random.normal(loc=<span class="number">0</span>,scale=<span class="number">1</span>,size=(<span class="number">8</span>,<span class="number">10</span>))</span><br><span class="line"></span><br><span class="line">arr &gt; <span class="number">0.5</span>   <span class="comment"># 数组元素&gt;0.5标记为True,反之False(Bool值数组)</span></span><br><span class="line"></span><br><span class="line"><span class="comment"># bool索引</span></span><br><span class="line">arr1 = arr[arr &gt; <span class="number">0.5</span>]  <span class="comment"># 返回满足逻辑表达式的(一维)数组</span></span><br><span class="line">arr[arr &gt; <span class="number">0.5</span>] = <span class="number">1</span>  <span class="comment"># 满足逻辑的元素重新赋值为1(原数组)</span></span><br><span class="line"></span><br><span class="line"><span class="comment"># 通用判断函数</span></span><br><span class="line">np.<span class="built_in">all</span>(arr &gt; <span class="number">0.5</span>)   <span class="comment"># 数组全True则返回True,否则返回False</span></span><br><span class="line">np.<span class="built_in">any</span>(arr &gt; <span class="number">0.5</span>)   <span class="comment"># 有一个True则返回True,否则返回False</span></span><br><span class="line"></span><br><span class="line"><span class="comment"># 三元运算符</span></span><br><span class="line">arr2 = arr[:<span class="number">4</span>,:<span class="number">4</span>]</span><br><span class="line">arr3 = np.where(arr2 &gt; <span class="number">0</span>, <span class="number">1</span>, <span class="number">0</span>)    <span class="comment"># Bool值数组&gt;1则赋值1,否则赋值0</span></span><br><span class="line">arr4 = np.where(np.logical_and(arr2 &gt; <span class="number">0</span>,arr2 &lt; <span class="number">1</span>), <span class="number">1</span>, <span class="number">0</span>) <span class="comment"># &quot;与&quot;逻辑</span></span><br><span class="line">arr5 = np.where(np.logical_or(arr2 &gt; <span class="number">0</span>,arr2 &lt; <span class="number">1</span>), <span class="number">1</span>, <span class="number">0</span>)  <span class="comment"># &quot;或&quot;逻辑</span></span><br></pre></td></tr></table></figure>
+<h4 id="统计运算"><a href="#统计运算" class="headerlink" title="统计运算"></a>统计运算</h4><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line">arr = np.random.normal(loc=<span class="number">0</span>,scale=<span class="number">1</span>,size=(<span class="number">4</span>,<span class="number">4</span>))</span><br><span class="line"></span><br><span class="line">arr1 = arr.<span class="built_in">max</span>()   <span class="comment"># 所有元素最大值</span></span><br><span class="line">arr2 = arr.<span class="built_in">max</span>(axis=<span class="number">0</span>) <span class="comment"># 嵌套数组中,第1层数组内数组比较(第1个维度)</span></span><br><span class="line">arr3 = arr.<span class="built_in">max</span>(axis=<span class="number">1</span>) <span class="comment"># 第2层数组比较(第2个维度),以此类推</span></span><br><span class="line">arr4 = arr.<span class="built_in">max</span>(axis=-<span class="number">1</span>) <span class="comment"># 最底层维度(如本例二维数组,第1层有4个数组,axis=0时找到4个数组的最大并返回,axis=1找到4个数组内的最大,并组成数组返回)</span></span><br><span class="line">arr5 = arr.argmax(axis=<span class="number">1</span>)   <span class="comment"># 最大值的对应数组位置</span></span><br><span class="line"></span><br><span class="line"><span class="comment"># 相应的还有最小值,平均值,中位数等特征数的运算</span></span><br><span class="line"><span class="comment"># 方法的使用也可用是 np.max(ndarray,axis= ,...) 的形式</span></span><br></pre></td></tr></table></figure>
+<h4 id="数组运算"><a href="#数组运算" class="headerlink" title="数组运算"></a>数组运算</h4><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line">arr = np.random.normal(loc=<span class="number">0</span>,scale=<span class="number">1</span>,size=(<span class="number">4</span>,<span class="number">4</span>))</span><br><span class="line"></span><br><span class="line"><span class="comment"># 数组与数</span></span><br><span class="line">arr1 = arr + <span class="number">1</span>  <span class="comment"># 每个元素+1, - ,* , / 同理</span></span><br><span class="line"></span><br><span class="line"><span class="comment"># 数组与数组(广播机制)</span></span><br><span class="line"><span class="comment"># 要满足1.数组的维度深度要一致(嵌套深度),所有维度上元素个数相等 2.某一维度上元素个数不相等，但元素个数为1</span></span><br><span class="line"></span><br><span class="line"><span class="comment"># 要么只有一个元素: [[1,2,3],[4,5,6]] + [[1],[2]] = [[2,3,4],[6,7,8]]</span></span><br><span class="line"><span class="comment"># 要么对应元素数量相等: [[1,2,3],[4,5,6]] + [[4,5,6],[1,2,3]] = [[5,7,9],[5,7,9]]</span></span><br><span class="line"></span><br><span class="line"><span class="comment"># 形状不同时: [[1,2,3],[4,5,6]] + [1,2,3] -&gt; [[1,2,3],[4,5,6]] + [[1,2,3],[1,2,3]] = [[2,4,6],[5,7,9]]</span></span><br><span class="line"><span class="comment"># 也要保持对应计算元素为1或数量相同</span></span><br></pre></td></tr></table></figure>
+<h4 id="矩阵运算"><a href="#矩阵运算" class="headerlink" title="矩阵运算"></a>矩阵运算</h4><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line">temp1,temp2 = [<span class="number">1</span>,<span class="number">2</span>,<span class="number">3</span>],[<span class="number">4</span>,<span class="number">5</span>,<span class="number">6</span>]</span><br><span class="line"></span><br><span class="line">arr1 = np.array(temp1)   <span class="comment"># ndarray存放矩阵</span></span><br><span class="line">arr2 = np.mat(temp2)     <span class="comment"># matrix存放矩阵</span></span><br><span class="line"></span><br><span class="line"><span class="comment"># ndarray存放矩阵乘法</span></span><br><span class="line">arr3 = np.matmul(arr1,arr2)</span><br><span class="line">arr4 = np.dot(arr1,arr2)</span><br><span class="line"></span><br><span class="line"><span class="comment"># matrix存放矩阵乘法</span></span><br><span class="line">arr5 = arr1 * arr2</span><br></pre></td></tr></table></figure>
+<h4 id="合并与分割"><a href="#合并与分割" class="headerlink" title="合并与分割"></a>合并与分割</h4><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line">arr1,arr2 = np.array([<span class="number">1</span>,<span class="number">2</span>,<span class="number">3</span>]),np.array([<span class="number">4</span>,<span class="number">5</span>,<span class="number">6</span>])</span><br><span class="line"></span><br><span class="line"><span class="comment"># 合并</span></span><br><span class="line">arr3 = np.hstack(arr1,arr2)    <span class="comment"># &quot;行&quot;合并</span></span><br><span class="line">arr4 = np.vstack(arr1,arr2)    <span class="comment"># &quot;列&quot;合并</span></span><br><span class="line">arr5 = np.concatenate((arr,arr2),axis=<span class="number">0</span>)  <span class="comment"># 第1层数组合并</span></span><br><span class="line"></span><br><span class="line"><span class="comment"># 分割</span></span><br><span class="line">arr6 = np.split(arr1,<span class="number">1</span>)     <span class="comment"># 每隔一个分割一次</span></span><br><span class="line">arr7 = np.split(arr3,[<span class="number">2</span>,<span class="number">4</span>]) <span class="comment"># 以2,4为分割数</span></span><br></pre></td></tr></table></figure>
+<h4 id="I-O操作与数据处理"><a href="#I-O操作与数据处理" class="headerlink" title="I&#x2F;O操作与数据处理"></a>I&#x2F;O操作与数据处理</h4><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 读文件</span></span><br><span class="line">text = np.genfromtxt(<span class="string">&quot;test.txt&quot;</span>,determine=<span class="string">&quot;,&quot;</span>)  <span class="comment"># determine指定分割符,返回数组,缺失值nan,不支持读字符串</span></span><br><span class="line"><span class="comment"># 处理nan用替换/(平均值)插补方法</span></span><br><span class="line"><span class="comment"># 用Numpy读文件比较麻烦,更推荐用Pandas</span></span><br></pre></td></tr></table></figure>
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="http://by2095163684.github.io/2024/07/23/Numpy-II/" data-id="clyy9f26j0006m0veg4mpfk13" data-title="Numpy(II)" class="article-share-link"><span class="fa fa-share">分享</span></a>
+      
+      
+      
+    </footer>
+  </div>
+  
+</article>
+
+
+
+  
     <article id="post-Numpy-I" class="h-entry article article-type-post" itemprop="blogPost" itemscope itemtype="https://schema.org/BlogPosting">
   <div class="article-meta">
     <a href="/2024/07/22/Numpy-I/" class="article-date">
@@ -111,7 +155,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://by2095163684.github.io/2024/07/22/Numpy-I/" data-id="clywr5b5z0005q8ve2gy22pxp" data-title="Numpy(I)" class="article-share-link"><span class="fa fa-share">分享</span></a>
+      <a data-url="http://by2095163684.github.io/2024/07/22/Numpy-I/" data-id="clyy9f26i0004m0vega7c4li6" data-title="Numpy(I)" class="article-share-link"><span class="fa fa-share">分享</span></a>
       
       
       
@@ -154,7 +198,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://by2095163684.github.io/2024/07/21/Matplotlib-II/" data-id="clywr5b5w0001q8ve04cj0m7o" data-title="Matplotlib(II)" class="article-share-link"><span class="fa fa-share">分享</span></a>
+      <a data-url="http://by2095163684.github.io/2024/07/21/Matplotlib-II/" data-id="clyy9f26h0002m0vehk3h1750" data-title="Matplotlib(II)" class="article-share-link"><span class="fa fa-share">分享</span></a>
       
       
       
@@ -208,7 +252,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://by2095163684.github.io/2024/07/20/Matplotlib-I/" data-id="clywr5b5x0002q8veg1lwer1i" data-title="Matplotlib(I)" class="article-share-link"><span class="fa fa-share">分享</span></a>
+      <a data-url="http://by2095163684.github.io/2024/07/20/Matplotlib-I/" data-id="clyy9f26g0001m0ve6shydns1" data-title="Matplotlib(I)" class="article-share-link"><span class="fa fa-share">分享</span></a>
       
       
       
@@ -268,7 +312,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://by2095163684.github.io/2024/07/19/Jupyter-Notebook/" data-id="clywr5b5t0000q8vedq0r4jsf" data-title="Jupyter Notebook" class="article-share-link"><span class="fa fa-share">分享</span></a>
+      <a data-url="http://by2095163684.github.io/2024/07/19/Jupyter-Notebook/" data-id="clyy9f26d0000m0ve65ufhzif" data-title="Jupyter Notebook" class="article-share-link"><span class="fa fa-share">分享</span></a>
       
       
       
@@ -307,7 +351,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://by2095163684.github.io/2024/07/18/%E9%85%8D%E7%BD%AEAnaconda%E8%99%9A%E6%8B%9F%E7%8E%AF%E5%A2%83/" data-id="clywr5b5y0004q8vegylj5j66" data-title="配置Anaconda虚拟环境" class="article-share-link"><span class="fa fa-share">分享</span></a>
+      <a data-url="http://by2095163684.github.io/2024/07/18/%E9%85%8D%E7%BD%AEAnaconda%E8%99%9A%E6%8B%9F%E7%8E%AF%E5%A2%83/" data-id="clyy9f26j0005m0ve0wyt8x7q" data-title="配置Anaconda虚拟环境" class="article-share-link"><span class="fa fa-share">分享</span></a>
       
       
       
@@ -346,7 +390,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://by2095163684.github.io/2024/07/17/My-Blog-Test/" data-id="clywr5b5y0003q8ve7ired7sw" data-title="My Blog Test" class="article-share-link"><span class="fa fa-share">分享</span></a>
+      <a data-url="http://by2095163684.github.io/2024/07/17/My-Blog-Test/" data-id="clyy9f26i0003m0ve7zt45jm3" data-title="My Blog Test" class="article-share-link"><span class="fa fa-share">分享</span></a>
       
       
       
@@ -389,6 +433,10 @@
       <ul>
         
           <li>
+            <a href="/2024/07/23/Numpy-II/">Numpy(II)</a>
+          </li>
+        
+          <li>
             <a href="/2024/07/22/Numpy-I/">Numpy(I)</a>
           </li>
         
@@ -402,10 +450,6 @@
         
           <li>
             <a href="/2024/07/19/Jupyter-Notebook/">Jupyter Notebook</a>
-          </li>
-        
-          <li>
-            <a href="/2024/07/18/%E9%85%8D%E7%BD%AEAnaconda%E8%99%9A%E6%8B%9F%E7%8E%AF%E5%A2%83/">配置Anaconda虚拟环境</a>
           </li>
         
       </ul>
