@@ -69,6 +69,50 @@
       <div class="outer">
         <section id="main">
   
+    <article id="post-Pandas-II" class="h-entry article article-type-post" itemprop="blogPost" itemscope itemtype="https://schema.org/BlogPosting">
+  <div class="article-meta">
+    <a href="/2024/07/25/Pandas-II/" class="article-date">
+  <time class="dt-published" datetime="2024-07-25T08:05:12.000Z" itemprop="datePublished">2024-07-25</time>
+</a>
+    
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="p-name article-title" href="/2024/07/25/Pandas-II/">Pandas(II)</a>
+    </h1>
+  
+
+      </header>
+    
+    <div class="e-content article-entry" itemprop="articleBody">
+      
+        <p>能用于DataFrame的方法也适用于Series</p>
+<h4 id="算数运算-加减乘除"><a href="#算数运算-加减乘除" class="headerlink" title="算数运算(加减乘除)"></a>算数运算(加减乘除)</h4><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 加</span></span><br><span class="line">data1 = data[<span class="string">&#x27;year&#x27;</span>] + <span class="number">3</span>    <span class="comment"># 拿到year列后再+3</span></span><br><span class="line">data[<span class="string">&#x27;year&#x27;</span>] = data[<span class="string">&#x27;year&#x27;</span>].add(<span class="number">3</span>)</span><br><span class="line"></span><br><span class="line"><span class="comment"># 减</span></span><br><span class="line">data1 = data[<span class="string">&#x27;year&#x27;</span>].sub(<span class="number">3</span>)</span><br><span class="line"></span><br><span class="line"><span class="comment"># ......</span></span><br></pre></td></tr></table></figure>
+<h4 id="逻辑运算"><a href="#逻辑运算" class="headerlink" title="逻辑运算"></a>逻辑运算</h4><p>获得的bool数组都可以传入data[]索引得到满足的所有数组</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">data1 = data[<span class="string">&#x27;year&#x27;</span>] &gt; <span class="number">2013</span> <span class="comment"># year列满足True,反之False</span></span><br><span class="line">data2 = data[data[<span class="string">&#x27;year&#x27;</span>] &gt; <span class="number">2013</span>]   <span class="comment"># 筛选year列满足的所有数据</span></span><br><span class="line">data3 = (data[<span class="string">&#x27;year&#x27;</span>] &gt;<span class="number">2013</span>) &amp; (data[<span class="string">&#x27;sale&#x27;</span>] &gt; <span class="number">50</span>)  <span class="comment"># &quot;与&quot;逻辑</span></span><br><span class="line"></span><br><span class="line"><span class="comment"># 逻辑函数</span></span><br><span class="line">data4 = data.query(<span class="string">&#x27;year &gt; 2013 &amp; sale &gt; 50&#x27;</span>)</span><br><span class="line">data5 = data[<span class="string">&#x27;year&#x27;</span>].isin([<span class="number">2013</span>,<span class="number">2014</span>])  <span class="comment"># 满足范围</span></span><br></pre></td></tr></table></figure>
+<h4 id="统计运算"><a href="#统计运算" class="headerlink" title="统计运算"></a>统计运算</h4><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">data1 = data.describe() <span class="comment"># 直接返回常用统计特征数</span></span><br><span class="line">data2 = data.<span class="built_in">max</span>()  <span class="comment"># 最大值</span></span><br><span class="line">data3 = data.idxmax()   <span class="comment"># 最大值索引</span></span><br><span class="line">data4 = data.cumsum()   <span class="comment"># 累计加统计</span></span><br><span class="line"><span class="comment"># ......</span></span><br><span class="line"></span><br><span class="line"><span class="comment"># 自定义运算</span></span><br><span class="line">data5 = data[<span class="string">&#x27;sale&#x27;</span>].apply(<span class="keyword">lambda</span> x:x.<span class="built_in">max</span>(),axis=<span class="number">0</span>)</span><br></pre></td></tr></table></figure>
+<h4 id="画图"><a href="#画图" class="headerlink" title="画图"></a>画图</h4><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">data.plot(x=<span class="string">&#x27;year&#x27;</span>,y=<span class="string">&#x27;sale&#x27;</span>,kind=<span class="string">&#x27;line&#x27;</span>)</span><br></pre></td></tr></table></figure>
+<h4 id="文件读取和存储"><a href="#文件读取和存储" class="headerlink" title="文件读取和存储"></a>文件读取和存储</h4><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">data = pd.read_csv(<span class="string">&#x27;./test.csv&#x27;</span>,usecols=[<span class="string">&#x27;year&#x27;</span>,<span class="string">&#x27;sale&#x27;</span>],names=[<span class="string">&#x27;&#x27;</span>,<span class="string">&#x27;&#x27;</span>])    <span class="comment"># 读CSV文件,usecols选取需要数据(列),names字段(列名)</span></span><br><span class="line">data.to_csv(<span class="string">&#x27;./test.csv&#x27;</span>,columns=[<span class="string">&#x27;year&#x27;</span>],index=<span class="literal">False</span>,mode=<span class="string">&#x27;a&#x27;</span>,headers=<span class="literal">False</span>)  <span class="comment"># 写入CSV文件,columns选取需要数据(列),index=False不要行索引列,&#x27;a&#x27;追加写入,headers=False不要列索引</span></span><br><span class="line"></span><br><span class="line"><span class="comment"># hdf5文件存三维,key维度内放入二维DataFrame</span></span><br><span class="line">data = pd.read_hdf(<span class="string">&#x27;./test.h5&#x27;</span>,key=<span class="string">&#x27;test&#x27;</span>)    <span class="comment">#读HDF5文件,key是所读的键,读取需要tables模块</span></span><br><span class="line">pd.to_hdf(<span class="string">&#x27;./test.h5&#x27;</span>,key=<span class="string">&#x27;test&#x27;</span>)   <span class="comment"># 写入HDF5文件,key指定写入数据对应的键</span></span><br><span class="line"></span><br><span class="line">data = pd.read_json(<span class="string">&#x27;./test.json&#x27;</span>,orient=<span class="string">&#x27;records&#x27;</span>,lines=<span class="literal">True</span>)  <span class="comment"># 读json文件,lines=True分行格式化</span></span><br><span class="line">pd.to_json(<span class="string">&#x27;./test.json&#x27;</span>,orient=<span class="string">&#x27;records&#x27;</span>,lines=<span class="literal">True</span>)   <span class="comment"># 写json文件</span></span><br></pre></td></tr></table></figure>
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="http://by2095163684.github.io/2024/07/25/Pandas-II/" data-id="clz0zokkv0006moveduh71d88" data-title="Pandas(II)" class="article-share-link"><span class="fa fa-share">分享</span></a>
+      
+      
+      
+    </footer>
+  </div>
+  
+</article>
+
+
+
+  
     <article id="post-Pandas-I" class="h-entry article article-type-post" itemprop="blogPost" itemscope itemtype="https://schema.org/BlogPosting">
   <div class="article-meta">
     <a href="/2024/07/24/Pandas-I/" class="article-date">
@@ -99,7 +143,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://by2095163684.github.io/2024/07/24/Pandas-I/" data-id="clyzli4eg0006ywvee91e9fzy" data-title="Pandas(I)" class="article-share-link"><span class="fa fa-share">分享</span></a>
+      <a data-url="http://by2095163684.github.io/2024/07/24/Pandas-I/" data-id="clz0zokkv0005move0k5f4ehj" data-title="Pandas(I)" class="article-share-link"><span class="fa fa-share">分享</span></a>
       
       
       
@@ -143,7 +187,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://by2095163684.github.io/2024/07/23/Numpy-II/" data-id="clyzli4ef0005ywvecp8pakv3" data-title="Numpy(II)" class="article-share-link"><span class="fa fa-share">分享</span></a>
+      <a data-url="http://by2095163684.github.io/2024/07/23/Numpy-II/" data-id="clz0zokkw0007move9xl46y6b" data-title="Numpy(II)" class="article-share-link"><span class="fa fa-share">分享</span></a>
       
       
       
@@ -197,7 +241,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://by2095163684.github.io/2024/07/22/Numpy-I/" data-id="clyzli4ef0004ywvefiu758yc" data-title="Numpy(I)" class="article-share-link"><span class="fa fa-share">分享</span></a>
+      <a data-url="http://by2095163684.github.io/2024/07/22/Numpy-I/" data-id="clz0zokku0004move9kzh1cxv" data-title="Numpy(I)" class="article-share-link"><span class="fa fa-share">分享</span></a>
       
       
       
@@ -240,7 +284,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://by2095163684.github.io/2024/07/21/Matplotlib-II/" data-id="clyzli4ec0001ywve1kuyb0u1" data-title="Matplotlib(II)" class="article-share-link"><span class="fa fa-share">分享</span></a>
+      <a data-url="http://by2095163684.github.io/2024/07/21/Matplotlib-II/" data-id="clz0zokkt0002move8m020hic" data-title="Matplotlib(II)" class="article-share-link"><span class="fa fa-share">分享</span></a>
       
       
       
@@ -294,7 +338,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://by2095163684.github.io/2024/07/20/Matplotlib-I/" data-id="clyzli4ed0002ywvegy77dotq" data-title="Matplotlib(I)" class="article-share-link"><span class="fa fa-share">分享</span></a>
+      <a data-url="http://by2095163684.github.io/2024/07/20/Matplotlib-I/" data-id="clz0zokks0001move28fq90t0" data-title="Matplotlib(I)" class="article-share-link"><span class="fa fa-share">分享</span></a>
       
       
       
@@ -354,7 +398,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://by2095163684.github.io/2024/07/19/Jupyter-Notebook/" data-id="clyzli4e90000ywvebq1s0je9" data-title="Jupyter Notebook" class="article-share-link"><span class="fa fa-share">分享</span></a>
+      <a data-url="http://by2095163684.github.io/2024/07/19/Jupyter-Notebook/" data-id="clz0zokkn0000movefj77am7b" data-title="Jupyter Notebook" class="article-share-link"><span class="fa fa-share">分享</span></a>
       
       
       
@@ -393,7 +437,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://by2095163684.github.io/2024/07/18/%E9%85%8D%E7%BD%AEAnaconda%E8%99%9A%E6%8B%9F%E7%8E%AF%E5%A2%83/" data-id="clyzli4eg0007ywvebrto6w4g" data-title="配置Anaconda虚拟环境" class="article-share-link"><span class="fa fa-share">分享</span></a>
+      <a data-url="http://by2095163684.github.io/2024/07/18/%E9%85%8D%E7%BD%AEAnaconda%E8%99%9A%E6%8B%9F%E7%8E%AF%E5%A2%83/" data-id="clz0zokkw0008move5ykc7ra2" data-title="配置Anaconda虚拟环境" class="article-share-link"><span class="fa fa-share">分享</span></a>
       
       
       
@@ -432,7 +476,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://by2095163684.github.io/2024/07/17/My-Blog-Test/" data-id="clyzli4ee0003ywve9vilaxau" data-title="My Blog Test" class="article-share-link"><span class="fa fa-share">分享</span></a>
+      <a data-url="http://by2095163684.github.io/2024/07/17/My-Blog-Test/" data-id="clz0zokku0003move6o9rc7f9" data-title="My Blog Test" class="article-share-link"><span class="fa fa-share">分享</span></a>
       
       
       
@@ -475,6 +519,10 @@
       <ul>
         
           <li>
+            <a href="/2024/07/25/Pandas-II/">Pandas(II)</a>
+          </li>
+        
+          <li>
             <a href="/2024/07/24/Pandas-I/">Pandas(I)</a>
           </li>
         
@@ -488,10 +536,6 @@
         
           <li>
             <a href="/2024/07/21/Matplotlib-II/">Matplotlib(II)</a>
-          </li>
-        
-          <li>
-            <a href="/2024/07/20/Matplotlib-I/">Matplotlib(I)</a>
           </li>
         
       </ul>
