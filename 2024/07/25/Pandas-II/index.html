@@ -14,7 +14,7 @@
 <meta property="og:description" content="能用于DataFrame的方法也适用于Series 算数运算(加减乘除)12345678# 加data1 &#x3D; data[&#x27;year&#x27;] + 3    # 拿到year列后再+3data[&#x27;year&#x27;] &#x3D; data[&#x27;year&#x27;].add(3)# 减data1 &#x3D; data[&#x27;year&#x27;].sub(3)# ......">
 <meta property="og:locale" content="zh_CN">
 <meta property="article:published_time" content="2024-07-25T08:05:12.000Z">
-<meta property="article:modified_time" content="2024-07-25T08:05:35.037Z">
+<meta property="article:modified_time" content="2024-07-26T08:02:15.691Z">
 <meta property="article:author" content="废、寝、忘、食">
 <meta name="twitter:card" content="summary">
   
@@ -98,12 +98,12 @@
 <h4 id="逻辑运算"><a href="#逻辑运算" class="headerlink" title="逻辑运算"></a>逻辑运算</h4><p>获得的bool数组都可以传入data[]索引得到满足的所有数组</p>
 <figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">data1 = data[<span class="string">&#x27;year&#x27;</span>] &gt; <span class="number">2013</span> <span class="comment"># year列满足True,反之False</span></span><br><span class="line">data2 = data[data[<span class="string">&#x27;year&#x27;</span>] &gt; <span class="number">2013</span>]   <span class="comment"># 筛选year列满足的所有数据</span></span><br><span class="line">data3 = (data[<span class="string">&#x27;year&#x27;</span>] &gt;<span class="number">2013</span>) &amp; (data[<span class="string">&#x27;sale&#x27;</span>] &gt; <span class="number">50</span>)  <span class="comment"># &quot;与&quot;逻辑</span></span><br><span class="line"></span><br><span class="line"><span class="comment"># 逻辑函数</span></span><br><span class="line">data4 = data.query(<span class="string">&#x27;year &gt; 2013 &amp; sale &gt; 50&#x27;</span>)</span><br><span class="line">data5 = data[<span class="string">&#x27;year&#x27;</span>].isin([<span class="number">2013</span>,<span class="number">2014</span>])  <span class="comment"># 满足范围</span></span><br></pre></td></tr></table></figure>
 <h4 id="统计运算"><a href="#统计运算" class="headerlink" title="统计运算"></a>统计运算</h4><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">data1 = data.describe() <span class="comment"># 直接返回常用统计特征数</span></span><br><span class="line">data2 = data.<span class="built_in">max</span>()  <span class="comment"># 最大值</span></span><br><span class="line">data3 = data.idxmax()   <span class="comment"># 最大值索引</span></span><br><span class="line">data4 = data.cumsum()   <span class="comment"># 累计加统计</span></span><br><span class="line"><span class="comment"># ......</span></span><br><span class="line"></span><br><span class="line"><span class="comment"># 自定义运算</span></span><br><span class="line">data5 = data[<span class="string">&#x27;sale&#x27;</span>].apply(<span class="keyword">lambda</span> x:x.<span class="built_in">max</span>(),axis=<span class="number">0</span>)</span><br></pre></td></tr></table></figure>
-<h4 id="画图"><a href="#画图" class="headerlink" title="画图"></a>画图</h4><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">data.plot(x=<span class="string">&#x27;year&#x27;</span>,y=<span class="string">&#x27;sale&#x27;</span>,kind=<span class="string">&#x27;line&#x27;</span>)</span><br></pre></td></tr></table></figure>
+<h4 id="画图"><a href="#画图" class="headerlink" title="画图"></a>画图</h4><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">data.plot(x=<span class="string">&#x27;year&#x27;</span>,y=<span class="string">&#x27;sale&#x27;</span>,kind=<span class="string">&#x27;line&#x27;</span>,stacked=<span class="literal">False</span>)  <span class="comment"># stacked=False堆叠效果关闭,柱状图有用</span></span><br></pre></td></tr></table></figure>
 <h4 id="文件读取和存储"><a href="#文件读取和存储" class="headerlink" title="文件读取和存储"></a>文件读取和存储</h4><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">data = pd.read_csv(<span class="string">&#x27;./test.csv&#x27;</span>,usecols=[<span class="string">&#x27;year&#x27;</span>,<span class="string">&#x27;sale&#x27;</span>],names=[<span class="string">&#x27;&#x27;</span>,<span class="string">&#x27;&#x27;</span>])    <span class="comment"># 读CSV文件,usecols选取需要数据(列),names字段(列名)</span></span><br><span class="line">data.to_csv(<span class="string">&#x27;./test.csv&#x27;</span>,columns=[<span class="string">&#x27;year&#x27;</span>],index=<span class="literal">False</span>,mode=<span class="string">&#x27;a&#x27;</span>,headers=<span class="literal">False</span>)  <span class="comment"># 写入CSV文件,columns选取需要数据(列),index=False不要行索引列,&#x27;a&#x27;追加写入,headers=False不要列索引</span></span><br><span class="line"></span><br><span class="line"><span class="comment"># hdf5文件存三维,key维度内放入二维DataFrame</span></span><br><span class="line">data = pd.read_hdf(<span class="string">&#x27;./test.h5&#x27;</span>,key=<span class="string">&#x27;test&#x27;</span>)    <span class="comment">#读HDF5文件,key是所读的键,读取需要tables模块</span></span><br><span class="line">pd.to_hdf(<span class="string">&#x27;./test.h5&#x27;</span>,key=<span class="string">&#x27;test&#x27;</span>)   <span class="comment"># 写入HDF5文件,key指定写入数据对应的键</span></span><br><span class="line"></span><br><span class="line">data = pd.read_json(<span class="string">&#x27;./test.json&#x27;</span>,orient=<span class="string">&#x27;records&#x27;</span>,lines=<span class="literal">True</span>)  <span class="comment"># 读json文件,lines=True分行格式化</span></span><br><span class="line">pd.to_json(<span class="string">&#x27;./test.json&#x27;</span>,orient=<span class="string">&#x27;records&#x27;</span>,lines=<span class="literal">True</span>)   <span class="comment"># 写json文件</span></span><br></pre></td></tr></table></figure>
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://by2095163684.github.io/2024/07/25/Pandas-II/" data-id="clz0zokkv0006moveduh71d88" data-title="Pandas(II)" class="article-share-link"><span class="fa fa-share">分享</span></a>
+      <a data-url="http://by2095163684.github.io/2024/07/25/Pandas-II/" data-id="clz2ezy2000076wve1yvw4go4" data-title="Pandas(II)" class="article-share-link"><span class="fa fa-share">分享</span></a>
       
       
       
@@ -112,6 +112,15 @@
   
     
 <nav id="article-nav">
+  
+    <a href="/2024/07/26/Pandas-III/" id="article-nav-newer" class="article-nav-link-wrap">
+      <strong class="article-nav-caption">前一篇</strong>
+      <div class="article-nav-title">
+        
+          Pandas(III)
+        
+      </div>
+    </a>
   
   
     <a href="/2024/07/24/Pandas-I/" id="article-nav-older" class="article-nav-link-wrap">
@@ -154,6 +163,10 @@
       <ul>
         
           <li>
+            <a href="/2024/07/26/Pandas-III/">Pandas(III)</a>
+          </li>
+        
+          <li>
             <a href="/2024/07/25/Pandas-II/">Pandas(II)</a>
           </li>
         
@@ -167,10 +180,6 @@
         
           <li>
             <a href="/2024/07/22/Numpy-I/">Numpy(I)</a>
-          </li>
-        
-          <li>
-            <a href="/2024/07/21/Matplotlib-II/">Matplotlib(II)</a>
           </li>
         
       </ul>
