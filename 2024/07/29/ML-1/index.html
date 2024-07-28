@@ -1,0 +1,264 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  
+  
+  <title>ML(1)_特征提取 | ⎛⎝&gt;⏝⏝&lt;⎛⎝</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+  <meta name="description" content="任意数据(文本或图像)转换为可用于ML的数字特征 1import sklearn.feature_extraction 字典特征提取 sklearn.feature_extraction.DictVectorizer(sprase&#x3D;True,...): sprase&#x3D;True返回sprase矩阵,反之二维数组 DictVectorizer.fit_transform(X): X字典或包含">
+<meta property="og:type" content="article">
+<meta property="og:title" content="ML(1)_特征提取">
+<meta property="og:url" content="http://by2095163684.github.io/2024/07/29/ML-1/index.html">
+<meta property="og:site_name" content="⎛⎝&gt;⏝⏝&lt;⎛⎝">
+<meta property="og:description" content="任意数据(文本或图像)转换为可用于ML的数字特征 1import sklearn.feature_extraction 字典特征提取 sklearn.feature_extraction.DictVectorizer(sprase&#x3D;True,...): sprase&#x3D;True返回sprase矩阵,反之二维数组 DictVectorizer.fit_transform(X): X字典或包含">
+<meta property="og:locale" content="zh_CN">
+<meta property="article:published_time" content="2024-07-28T16:05:26.000Z">
+<meta property="article:modified_time" content="2024-07-28T16:08:28.462Z">
+<meta property="article:author" content="废、寝、忘、食">
+<meta name="twitter:card" content="summary">
+  
+    <link rel="alternate" href="/atom.xml" title="⎛⎝>⏝⏝<⎛⎝" type="application/atom+xml">
+  
+  
+    <link rel="shortcut icon" href="/favicon.png">
+  
+  
+  
+<link rel="stylesheet" href="/css/style.css">
+
+  
+    
+<link rel="stylesheet" href="/fancybox/jquery.fancybox.min.css">
+
+  
+  
+<meta name="generator" content="Hexo 7.3.0"></head>
+
+<body>
+  <div id="container">
+    <div id="wrap">
+      <header id="header">
+  <div id="banner"></div>
+  <div id="header-outer" class="outer">
+    <div id="header-title" class="inner">
+      <h1 id="logo-wrap">
+        <a href="/" id="logo">⎛⎝&gt;⏝⏝&lt;⎛⎝</a>
+      </h1>
+      
+    </div>
+    <div id="header-inner" class="inner">
+      <nav id="main-nav">
+        <a id="main-nav-toggle" class="nav-icon"><span class="fa fa-bars"></span></a>
+        
+          <a class="main-nav-link" href="/">Home</a>
+        
+          <a class="main-nav-link" href="/archives">Archives</a>
+        
+      </nav>
+      <nav id="sub-nav">
+        
+        
+          <a class="nav-icon" href="/atom.xml" title="RSS 订阅"><span class="fa fa-rss"></span></a>
+        
+        <a class="nav-icon nav-search-btn" title="搜索"><span class="fa fa-search"></span></a>
+      </nav>
+      <div id="search-form-wrap">
+        <form action="//google.com/search" method="get" accept-charset="UTF-8" class="search-form"><input type="search" name="q" class="search-form-input" placeholder="搜索"><button type="submit" class="search-form-submit">&#xF002;</button><input type="hidden" name="sitesearch" value="http://BY2095163684.github.io"></form>
+      </div>
+    </div>
+  </div>
+</header>
+
+      <div class="outer">
+        <section id="main"><article id="post-ML-1" class="h-entry article article-type-post" itemprop="blogPost" itemscope itemtype="https://schema.org/BlogPosting">
+  <div class="article-meta">
+    <a href="/2024/07/29/ML-1/" class="article-date">
+  <time class="dt-published" datetime="2024-07-28T16:05:26.000Z" itemprop="datePublished">2024-07-29</time>
+</a>
+    
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 class="p-name article-title" itemprop="headline name">
+      ML(1)_特征提取
+    </h1>
+  
+
+      </header>
+    
+    <div class="e-content article-entry" itemprop="articleBody">
+      
+        <p>任意数据(文本或图像)转换为可用于ML的数字特征</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> sklearn.feature_extraction</span><br></pre></td></tr></table></figure>
+<h3 id="字典特征提取"><a href="#字典特征提取" class="headerlink" title="字典特征提取"></a>字典特征提取</h3><ul>
+<li><code>sklearn.feature_extraction.DictVectorizer(sprase=True,...)</code>: sprase&#x3D;True返回sprase矩阵,反之二维数组<ul>
+<li><code>DictVectorizer.fit_transform(X)</code>: X字典或包含字典的迭代器,返回sprase矩阵(one-hot)</li>
+<li><code>DictVectorizer.inverse_transform(X)</code>: X array数组或sprase矩阵,返回转换前的数据格式</li>
+<li><code>DictVectorizer.get_feature_names_out()</code>: 返回类别名称</li>
+</ul>
+</li>
+</ul>
+<p>应用场景</p>
+<ul>
+<li>本身数据源就为字典</li>
+<li>数据集类别特征比较多<ul>
+<li>数据集特征 -&gt; 字典</li>
+<li>DictVectorizer转换</li>
+</ul>
+</li>
+</ul>
+<p>tips: sprase稀疏矩阵只指出非0值的位置,节省内存</p>
+<h3 id="文本特征提取"><a href="#文本特征提取" class="headerlink" title="文本特征提取"></a>文本特征提取</h3><ul>
+<li><code>sklearn.feature_extraction.text.CountVectorizer(sopt_words=[])</code>: (count计数)返回词频矩阵,sopt_words停用词<ul>
+<li><code>CountVectorizer.fit_transform(X)</code>: X文本或包含文本字符串可迭代对象,返回sprase矩阵</li>
+<li><code>CountVectorizer.inverse_transform(X)</code>: X array数组或sprase矩阵,返回转换前的数据格式</li>
+<li><code>CountVectorizer.get_feature_names_out()</code>: 返回单词列表</li>
+<li><code>.toarray()</code>: 查看密集矩阵(二维数组)</li>
+</ul>
+</li>
+</ul>
+<p>中文时使用jieba分词器</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> jieba</span><br><span class="line">jb = jieba.cut(<span class="string">&quot;我爱北京天安门&quot;</span>)</span><br><span class="line">cut_jb = <span class="built_in">list</span>(jb)</span><br><span class="line">data = <span class="string">&quot; &quot;</span>.join(cut_jb)</span><br></pre></td></tr></table></figure>
+<p>一般更倾向于取能体现本篇文章的关键词</p>
+<p>TF-IDF文本特征提取,TF-IDF用以评估字词对文章的重要程度: TF-IDF &#x3D; TF*IDF</p>
+<ol>
+<li>TF(词频): 词在本文章出现频率</li>
+<li>IDF(逆向文档频率): 词语普遍重要性度量,某词的 IDF &#x3D; lg(总文件数&#x2F;含该词的文件数)</li>
+</ol>
+<ul>
+<li><code>sklearn.feature_extraction.text.TfidfVectorizer(stop_words=None,...)</code>: 返回词的权重矩阵<ul>
+<li><code>TfidfVectorizer.fit_transform(X)</code>: X文本或包含文本字符串可迭代对象,返回sprase矩阵</li>
+<li><code>TfidfVectorizer.inverse_transform(X)</code>: X array数组或sprase矩阵,返回转换前的数据格式</li>
+<li><code>TfidfVectorizer.get_feature_names_out()</code>: 返回单词列表</li>
+<li><code>.toarray()</code>: 查看密集矩阵(二维数组)</li>
+</ul>
+</li>
+</ul>
+
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="http://by2095163684.github.io/2024/07/29/ML-1/" data-id="clz5rb15f0002lwvefv4d4z5q" data-title="ML(1)_特征提取" class="article-share-link"><span class="fa fa-share">分享</span></a>
+      
+      
+      
+    </footer>
+  </div>
+  
+    
+<nav id="article-nav">
+  
+  
+    <a href="/2024/07/26/Pandas-III/" id="article-nav-older" class="article-nav-link-wrap">
+      <strong class="article-nav-caption">后一篇</strong>
+      <div class="article-nav-title">Pandas(III)</div>
+    </a>
+  
+</nav>
+
+  
+</article>
+
+
+</section>
+        
+          <aside id="sidebar">
+  
+    
+
+  
+    
+
+  
+    
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">归档</h3>
+    <div class="widget">
+      <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/archives/2024/07/">七月 2024</a></li></ul>
+    </div>
+  </div>
+
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">最新文章</h3>
+    <div class="widget">
+      <ul>
+        
+          <li>
+            <a href="/2024/07/29/ML-1/">ML(1)_特征提取</a>
+          </li>
+        
+          <li>
+            <a href="/2024/07/26/Pandas-III/">Pandas(III)</a>
+          </li>
+        
+          <li>
+            <a href="/2024/07/25/Pandas-II/">Pandas(II)</a>
+          </li>
+        
+          <li>
+            <a href="/2024/07/24/Pandas-I/">Pandas(I)</a>
+          </li>
+        
+          <li>
+            <a href="/2024/07/23/Numpy-II/">Numpy(II)</a>
+          </li>
+        
+      </ul>
+    </div>
+  </div>
+
+  
+</aside>
+        
+      </div>
+      <footer id="footer">
+  
+  <div class="outer">
+    <div id="footer-info" class="inner">
+      
+      &copy; 2024 废、寝、忘、食<br>
+      Powered by <a href="https://hexo.io/" target="_blank">Hexo</a>
+    </div>
+  </div>
+</footer>
+
+    </div>
+    <nav id="mobile-nav">
+  
+    <a href="/" class="mobile-nav-link">Home</a>
+  
+    <a href="/archives" class="mobile-nav-link">Archives</a>
+  
+</nav>
+    
+
+
+<script src="/js/jquery-3.6.4.min.js"></script>
+
+
+
+  
+<script src="/fancybox/jquery.fancybox.min.js"></script>
+
+
+
+
+<script src="/js/script.js"></script>
+
+
+
+
+
+  </div>
+</body>
+</html>

@@ -4,17 +4,17 @@
   <meta charset="utf-8">
   
   
-  <title>这里不是二次元</title>
+  <title>⎛⎝&gt;⏝⏝&lt;⎛⎝</title>
   <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
   <meta property="og:type" content="website">
-<meta property="og:title" content="这里不是二次元">
+<meta property="og:title" content="⎛⎝&gt;⏝⏝&lt;⎛⎝">
 <meta property="og:url" content="http://by2095163684.github.io/index.html">
-<meta property="og:site_name" content="这里不是二次元">
+<meta property="og:site_name" content="⎛⎝&gt;⏝⏝&lt;⎛⎝">
 <meta property="og:locale" content="zh_CN">
 <meta property="article:author" content="废、寝、忘、食">
 <meta name="twitter:card" content="summary">
   
-    <link rel="alternate" href="/atom.xml" title="这里不是二次元" type="application/atom+xml">
+    <link rel="alternate" href="/atom.xml" title="⎛⎝>⏝⏝<⎛⎝" type="application/atom+xml">
   
   
     <link rel="shortcut icon" href="/favicon.png">
@@ -39,7 +39,7 @@
   <div id="header-outer" class="outer">
     <div id="header-title" class="inner">
       <h1 id="logo-wrap">
-        <a href="/" id="logo">这里不是二次元</a>
+        <a href="/" id="logo">⎛⎝&gt;⏝⏝&lt;⎛⎝</a>
       </h1>
       
     </div>
@@ -68,6 +68,90 @@
 
       <div class="outer">
         <section id="main">
+  
+    <article id="post-ML-1" class="h-entry article article-type-post" itemprop="blogPost" itemscope itemtype="https://schema.org/BlogPosting">
+  <div class="article-meta">
+    <a href="/2024/07/29/ML-1/" class="article-date">
+  <time class="dt-published" datetime="2024-07-28T16:05:26.000Z" itemprop="datePublished">2024-07-29</time>
+</a>
+    
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="p-name article-title" href="/2024/07/29/ML-1/">ML(1)_特征提取</a>
+    </h1>
+  
+
+      </header>
+    
+    <div class="e-content article-entry" itemprop="articleBody">
+      
+        <p>任意数据(文本或图像)转换为可用于ML的数字特征</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> sklearn.feature_extraction</span><br></pre></td></tr></table></figure>
+<h3 id="字典特征提取"><a href="#字典特征提取" class="headerlink" title="字典特征提取"></a>字典特征提取</h3><ul>
+<li><code>sklearn.feature_extraction.DictVectorizer(sprase=True,...)</code>: sprase&#x3D;True返回sprase矩阵,反之二维数组<ul>
+<li><code>DictVectorizer.fit_transform(X)</code>: X字典或包含字典的迭代器,返回sprase矩阵(one-hot)</li>
+<li><code>DictVectorizer.inverse_transform(X)</code>: X array数组或sprase矩阵,返回转换前的数据格式</li>
+<li><code>DictVectorizer.get_feature_names_out()</code>: 返回类别名称</li>
+</ul>
+</li>
+</ul>
+<p>应用场景</p>
+<ul>
+<li>本身数据源就为字典</li>
+<li>数据集类别特征比较多<ul>
+<li>数据集特征 -&gt; 字典</li>
+<li>DictVectorizer转换</li>
+</ul>
+</li>
+</ul>
+<p>tips: sprase稀疏矩阵只指出非0值的位置,节省内存</p>
+<h3 id="文本特征提取"><a href="#文本特征提取" class="headerlink" title="文本特征提取"></a>文本特征提取</h3><ul>
+<li><code>sklearn.feature_extraction.text.CountVectorizer(sopt_words=[])</code>: (count计数)返回词频矩阵,sopt_words停用词<ul>
+<li><code>CountVectorizer.fit_transform(X)</code>: X文本或包含文本字符串可迭代对象,返回sprase矩阵</li>
+<li><code>CountVectorizer.inverse_transform(X)</code>: X array数组或sprase矩阵,返回转换前的数据格式</li>
+<li><code>CountVectorizer.get_feature_names_out()</code>: 返回单词列表</li>
+<li><code>.toarray()</code>: 查看密集矩阵(二维数组)</li>
+</ul>
+</li>
+</ul>
+<p>中文时使用jieba分词器</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> jieba</span><br><span class="line">jb = jieba.cut(<span class="string">&quot;我爱北京天安门&quot;</span>)</span><br><span class="line">cut_jb = <span class="built_in">list</span>(jb)</span><br><span class="line">data = <span class="string">&quot; &quot;</span>.join(cut_jb)</span><br></pre></td></tr></table></figure>
+<p>一般更倾向于取能体现本篇文章的关键词</p>
+<p>TF-IDF文本特征提取,TF-IDF用以评估字词对文章的重要程度: TF-IDF &#x3D; TF*IDF</p>
+<ol>
+<li>TF(词频): 词在本文章出现频率</li>
+<li>IDF(逆向文档频率): 词语普遍重要性度量,某词的 IDF &#x3D; lg(总文件数&#x2F;含该词的文件数)</li>
+</ol>
+<ul>
+<li><code>sklearn.feature_extraction.text.TfidfVectorizer(stop_words=None,...)</code>: 返回词的权重矩阵<ul>
+<li><code>TfidfVectorizer.fit_transform(X)</code>: X文本或包含文本字符串可迭代对象,返回sprase矩阵</li>
+<li><code>TfidfVectorizer.inverse_transform(X)</code>: X array数组或sprase矩阵,返回转换前的数据格式</li>
+<li><code>TfidfVectorizer.get_feature_names_out()</code>: 返回单词列表</li>
+<li><code>.toarray()</code>: 查看密集矩阵(二维数组)</li>
+</ul>
+</li>
+</ul>
+
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="http://by2095163684.github.io/2024/07/29/ML-1/" data-id="clz5rb15f0002lwvefv4d4z5q" data-title="ML(1)_特征提取" class="article-share-link"><span class="fa fa-share">分享</span></a>
+      
+      
+      
+    </footer>
+  </div>
+  
+</article>
+
+
+
   
     <article id="post-Pandas-III" class="h-entry article article-type-post" itemprop="blogPost" itemscope itemtype="https://schema.org/BlogPosting">
   <div class="article-meta">
@@ -101,7 +185,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://by2095163684.github.io/2024/07/26/Pandas-III/" data-id="clz2ezy2100086wvebqww756c" data-title="Pandas(III)" class="article-share-link"><span class="fa fa-share">分享</span></a>
+      <a data-url="http://by2095163684.github.io/2024/07/26/Pandas-III/" data-id="clz5rb15l0006lwveg2s59o4d" data-title="Pandas(III)" class="article-share-link"><span class="fa fa-share">分享</span></a>
       
       
       
@@ -145,7 +229,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://by2095163684.github.io/2024/07/25/Pandas-II/" data-id="clz2ezy2000076wve1yvw4go4" data-title="Pandas(II)" class="article-share-link"><span class="fa fa-share">分享</span></a>
+      <a data-url="http://by2095163684.github.io/2024/07/25/Pandas-II/" data-id="clz5rb15p0008lwve1ufqhder" data-title="Pandas(II)" class="article-share-link"><span class="fa fa-share">分享</span></a>
       
       
       
@@ -187,7 +271,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://by2095163684.github.io/2024/07/24/Pandas-I/" data-id="clz2ezy1z00046wve0kdk3zfg" data-title="Pandas(I)" class="article-share-link"><span class="fa fa-share">分享</span></a>
+      <a data-url="http://by2095163684.github.io/2024/07/24/Pandas-I/" data-id="clz5rb15r000alwvecyjn24zg" data-title="Pandas(I)" class="article-share-link"><span class="fa fa-share">分享</span></a>
       
       
       
@@ -231,7 +315,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://by2095163684.github.io/2024/07/23/Numpy-II/" data-id="clz2ezy2000066wvebd3v857j" data-title="Numpy(II)" class="article-share-link"><span class="fa fa-share">分享</span></a>
+      <a data-url="http://by2095163684.github.io/2024/07/23/Numpy-II/" data-id="clz5rb15l0007lwveeh0j6brk" data-title="Numpy(II)" class="article-share-link"><span class="fa fa-share">分享</span></a>
       
       
       
@@ -285,7 +369,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://by2095163684.github.io/2024/07/22/Numpy-I/" data-id="clz2ezy1z00056wve2mifel0p" data-title="Numpy(I)" class="article-share-link"><span class="fa fa-share">分享</span></a>
+      <a data-url="http://by2095163684.github.io/2024/07/22/Numpy-I/" data-id="clz5rb15j0004lwveajnb9iiu" data-title="Numpy(I)" class="article-share-link"><span class="fa fa-share">分享</span></a>
       
       
       
@@ -328,7 +412,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://by2095163684.github.io/2024/07/21/Matplotlib-II/" data-id="clz2ezy1y00026wve6tuohxa4" data-title="Matplotlib(II)" class="article-share-link"><span class="fa fa-share">分享</span></a>
+      <a data-url="http://by2095163684.github.io/2024/07/21/Matplotlib-II/" data-id="clz5rb15e0001lwve4nv91n2b" data-title="Matplotlib(II)" class="article-share-link"><span class="fa fa-share">分享</span></a>
       
       
       
@@ -382,7 +466,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://by2095163684.github.io/2024/07/20/Matplotlib-I/" data-id="clz2ezy1x00016wvehspi06z1" data-title="Matplotlib(I)" class="article-share-link"><span class="fa fa-share">分享</span></a>
+      <a data-url="http://by2095163684.github.io/2024/07/20/Matplotlib-I/" data-id="clz5rb15h0003lwveht4c4vai" data-title="Matplotlib(I)" class="article-share-link"><span class="fa fa-share">分享</span></a>
       
       
       
@@ -442,7 +526,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://by2095163684.github.io/2024/07/19/Jupyter-Notebook/" data-id="clz2ezy1t00006wve0sm156xq" data-title="Jupyter Notebook" class="article-share-link"><span class="fa fa-share">分享</span></a>
+      <a data-url="http://by2095163684.github.io/2024/07/19/Jupyter-Notebook/" data-id="clz5rb15a0000lwvee94h8i3l" data-title="Jupyter Notebook" class="article-share-link"><span class="fa fa-share">分享</span></a>
       
       
       
@@ -481,46 +565,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://by2095163684.github.io/2024/07/18/%E9%85%8D%E7%BD%AEAnaconda%E8%99%9A%E6%8B%9F%E7%8E%AF%E5%A2%83/" data-id="clz2ezy2100096wveh0n4dip6" data-title="配置Anaconda虚拟环境" class="article-share-link"><span class="fa fa-share">分享</span></a>
-      
-      
-      
-    </footer>
-  </div>
-  
-</article>
-
-
-
-  
-    <article id="post-My-Blog-Test" class="h-entry article article-type-post" itemprop="blogPost" itemscope itemtype="https://schema.org/BlogPosting">
-  <div class="article-meta">
-    <a href="/2024/07/17/My-Blog-Test/" class="article-date">
-  <time class="dt-published" datetime="2024-07-17T09:35:05.000Z" itemprop="datePublished">2024-07-17</time>
-</a>
-    
-  </div>
-  <div class="article-inner">
-    
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="p-name article-title" href="/2024/07/17/My-Blog-Test/">My Blog Test</a>
-    </h1>
-  
-
-      </header>
-    
-    <div class="e-content article-entry" itemprop="articleBody">
-      
-        <p>Create a bolg, this is my blog test.</p>
-
-      
-    </div>
-    <footer class="article-footer">
-      <a data-url="http://by2095163684.github.io/2024/07/17/My-Blog-Test/" data-id="clz2ezy1y00036wve6rpkhxpp" data-title="My Blog Test" class="article-share-link"><span class="fa fa-share">分享</span></a>
+      <a data-url="http://by2095163684.github.io/2024/07/18/%E9%85%8D%E7%BD%AEAnaconda%E8%99%9A%E6%8B%9F%E7%8E%AF%E5%A2%83/" data-id="clz5rb15q0009lwve5rki5btx" data-title="配置Anaconda虚拟环境" class="article-share-link"><span class="fa fa-share">分享</span></a>
       
       
       
@@ -533,6 +578,11 @@
 
   
 
+
+  <nav id="page-nav">
+    
+    <span class="page-number current">1</span><a class="page-number" href="/page/2/">2</a><a class="extend next" rel="next" href="/page/2/">下一页 &raquo;</a>
+  </nav>
 
 </section>
         
@@ -563,6 +613,10 @@
       <ul>
         
           <li>
+            <a href="/2024/07/29/ML-1/">ML(1)_特征提取</a>
+          </li>
+        
+          <li>
             <a href="/2024/07/26/Pandas-III/">Pandas(III)</a>
           </li>
         
@@ -576,10 +630,6 @@
         
           <li>
             <a href="/2024/07/23/Numpy-II/">Numpy(II)</a>
-          </li>
-        
-          <li>
-            <a href="/2024/07/22/Numpy-I/">Numpy(I)</a>
           </li>
         
       </ul>
