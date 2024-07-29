@@ -69,6 +69,67 @@
       <div class="outer">
         <section id="main">
   
+    <article id="post-ML-2" class="h-entry article article-type-post" itemprop="blogPost" itemscope itemtype="https://schema.org/BlogPosting">
+  <div class="article-meta">
+    <a href="/2024/07/29/ML-2/" class="article-date">
+  <time class="dt-published" datetime="2024-07-29T09:01:58.000Z" itemprop="datePublished">2024-07-29</time>
+</a>
+    
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="p-name article-title" href="/2024/07/29/ML-2/">ML(2)_特征预处理</a>
+    </h1>
+  
+
+      </header>
+    
+    <div class="e-content article-entry" itemprop="articleBody">
+      
+        <p>通过一些函数转换将特征数据转换成更加合适算法模型的特征数据</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> sklearn.preprocessing</span><br></pre></td></tr></table></figure>
+<ul>
+<li>无量纲化,统一数据规格,避免权重差异过大<ul>
+<li>归一化: 数据映射到区间(默认[0,1])内,鲁棒性较差,适合精确小数据场景<ul>
+<li>某一特征: <strong>X’ &#x3D; (X-min)&#x2F;(max-min)</strong>, <strong>X” &#x3D; X’*(mX-mi)+mi</strong>, ([0,1] -&gt; [mx,mi])</li>
+<li><code>sklearn.preprocessing.MinMaxScaler(feature_range=(0,1),...)</code><ul>
+<li><code>MinMaxScaler.fit_transform(X)</code>: X numpy.ndarray格式数据, 返回转换后形状相同的ndarray</li>
+</ul>
+</li>
+</ul>
+</li>
+<li>标准化: 数据变换到均值为0,标准差为1范围内,在已有样本足够多的情况下比较稳定,适合现代嘈杂大数据场景<ul>
+<li>某一特征: <strong>X’ &#x3D; (X-mean)&#x2F;σ</strong>, (列均值mean,列标准差σ)</li>
+<li><code>sklearn.preprocessing.StandardScaler()</code><ul>
+<li><code>StandardScaler.fit_transform(X)</code>: X numpy.ndarray格式数据, 返回转换后形状相同的ndarray</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="http://by2095163684.github.io/2024/07/29/ML-2/" data-id="clz6rijky0002kwve5cwu2d1z" data-title="ML(2)_特征预处理" class="article-share-link"><span class="fa fa-share">分享</span></a>
+      
+      
+      
+    </footer>
+  </div>
+  
+</article>
+
+
+
+  
     <article id="post-ML-1" class="h-entry article article-type-post" itemprop="blogPost" itemscope itemtype="https://schema.org/BlogPosting">
   <div class="article-meta">
     <a href="/2024/07/29/ML-1/" class="article-date">
@@ -141,7 +202,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://by2095163684.github.io/2024/07/29/ML-1/" data-id="clz5rb15f0002lwvefv4d4z5q" data-title="ML(1)_特征提取" class="article-share-link"><span class="fa fa-share">分享</span></a>
+      <a data-url="http://by2095163684.github.io/2024/07/29/ML-1/" data-id="clz6rijkw0001kwveg3uy7qfu" data-title="ML(1)_特征提取" class="article-share-link"><span class="fa fa-share">分享</span></a>
       
       
       
@@ -185,7 +246,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://by2095163684.github.io/2024/07/26/Pandas-III/" data-id="clz5rb15l0006lwveg2s59o4d" data-title="Pandas(III)" class="article-share-link"><span class="fa fa-share">分享</span></a>
+      <a data-url="http://by2095163684.github.io/2024/07/26/Pandas-III/" data-id="clz6rijl6000akwve7o110fet" data-title="Pandas(III)" class="article-share-link"><span class="fa fa-share">分享</span></a>
       
       
       
@@ -229,7 +290,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://by2095163684.github.io/2024/07/25/Pandas-II/" data-id="clz5rb15p0008lwve1ufqhder" data-title="Pandas(II)" class="article-share-link"><span class="fa fa-share">分享</span></a>
+      <a data-url="http://by2095163684.github.io/2024/07/25/Pandas-II/" data-id="clz6rijl50009kwve7er3do9q" data-title="Pandas(II)" class="article-share-link"><span class="fa fa-share">分享</span></a>
       
       
       
@@ -271,7 +332,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://by2095163684.github.io/2024/07/24/Pandas-I/" data-id="clz5rb15r000alwvecyjn24zg" data-title="Pandas(I)" class="article-share-link"><span class="fa fa-share">分享</span></a>
+      <a data-url="http://by2095163684.github.io/2024/07/24/Pandas-I/" data-id="clz6rijl40008kwvebnwc5zc8" data-title="Pandas(I)" class="article-share-link"><span class="fa fa-share">分享</span></a>
       
       
       
@@ -315,7 +376,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://by2095163684.github.io/2024/07/23/Numpy-II/" data-id="clz5rb15l0007lwveeh0j6brk" data-title="Numpy(II)" class="article-share-link"><span class="fa fa-share">分享</span></a>
+      <a data-url="http://by2095163684.github.io/2024/07/23/Numpy-II/" data-id="clz6rijl40007kwveb67xd3ys" data-title="Numpy(II)" class="article-share-link"><span class="fa fa-share">分享</span></a>
       
       
       
@@ -369,7 +430,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://by2095163684.github.io/2024/07/22/Numpy-I/" data-id="clz5rb15j0004lwveajnb9iiu" data-title="Numpy(I)" class="article-share-link"><span class="fa fa-share">分享</span></a>
+      <a data-url="http://by2095163684.github.io/2024/07/22/Numpy-I/" data-id="clz6rijl30006kwve5oe18pco" data-title="Numpy(I)" class="article-share-link"><span class="fa fa-share">分享</span></a>
       
       
       
@@ -412,7 +473,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://by2095163684.github.io/2024/07/21/Matplotlib-II/" data-id="clz5rb15e0001lwve4nv91n2b" data-title="Matplotlib(II)" class="article-share-link"><span class="fa fa-share">分享</span></a>
+      <a data-url="http://by2095163684.github.io/2024/07/21/Matplotlib-II/" data-id="clz6rijl20004kwved8ejbc02" data-title="Matplotlib(II)" class="article-share-link"><span class="fa fa-share">分享</span></a>
       
       
       
@@ -466,7 +527,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://by2095163684.github.io/2024/07/20/Matplotlib-I/" data-id="clz5rb15h0003lwveht4c4vai" data-title="Matplotlib(I)" class="article-share-link"><span class="fa fa-share">分享</span></a>
+      <a data-url="http://by2095163684.github.io/2024/07/20/Matplotlib-I/" data-id="clz6rijl20003kwve6npxe2jp" data-title="Matplotlib(I)" class="article-share-link"><span class="fa fa-share">分享</span></a>
       
       
       
@@ -526,46 +587,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://by2095163684.github.io/2024/07/19/Jupyter-Notebook/" data-id="clz5rb15a0000lwvee94h8i3l" data-title="Jupyter Notebook" class="article-share-link"><span class="fa fa-share">分享</span></a>
-      
-      
-      
-    </footer>
-  </div>
-  
-</article>
-
-
-
-  
-    <article id="post-配置Anaconda虚拟环境" class="h-entry article article-type-post" itemprop="blogPost" itemscope itemtype="https://schema.org/BlogPosting">
-  <div class="article-meta">
-    <a href="/2024/07/18/%E9%85%8D%E7%BD%AEAnaconda%E8%99%9A%E6%8B%9F%E7%8E%AF%E5%A2%83/" class="article-date">
-  <time class="dt-published" datetime="2024-07-18T15:10:33.000Z" itemprop="datePublished">2024-07-18</time>
-</a>
-    
-  </div>
-  <div class="article-inner">
-    
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="p-name article-title" href="/2024/07/18/%E9%85%8D%E7%BD%AEAnaconda%E8%99%9A%E6%8B%9F%E7%8E%AF%E5%A2%83/">配置Anaconda虚拟环境</a>
-    </h1>
-  
-
-      </header>
-    
-    <div class="e-content article-entry" itemprop="articleBody">
-      
-        <p>环境配置, 阻挡萌新的第一大关！</p>
-
-      
-    </div>
-    <footer class="article-footer">
-      <a data-url="http://by2095163684.github.io/2024/07/18/%E9%85%8D%E7%BD%AEAnaconda%E8%99%9A%E6%8B%9F%E7%8E%AF%E5%A2%83/" data-id="clz5rb15q0009lwve5rki5btx" data-title="配置Anaconda虚拟环境" class="article-share-link"><span class="fa fa-share">分享</span></a>
+      <a data-url="http://by2095163684.github.io/2024/07/19/Jupyter-Notebook/" data-id="clz6rijkp0000kwve633mb87t" data-title="Jupyter Notebook" class="article-share-link"><span class="fa fa-share">分享</span></a>
       
       
       
@@ -613,6 +635,10 @@
       <ul>
         
           <li>
+            <a href="/2024/07/29/ML-2/">ML(2)_特征预处理</a>
+          </li>
+        
+          <li>
             <a href="/2024/07/29/ML-1/">ML(1)_特征提取</a>
           </li>
         
@@ -626,10 +652,6 @@
         
           <li>
             <a href="/2024/07/24/Pandas-I/">Pandas(I)</a>
-          </li>
-        
-          <li>
-            <a href="/2024/07/23/Numpy-II/">Numpy(II)</a>
           </li>
         
       </ul>
