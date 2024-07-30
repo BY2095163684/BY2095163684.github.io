@@ -4,13 +4,17 @@
   <meta charset="utf-8">
   
   
-  <title>⎛⎝&gt;⏝⏝&lt;⎛⎝</title>
+  <title>ML(3)_特征降维 | ⎛⎝&gt;⏝⏝&lt;⎛⎝</title>
   <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-  <meta property="og:type" content="website">
-<meta property="og:title" content="⎛⎝&gt;⏝⏝&lt;⎛⎝">
-<meta property="og:url" content="https://by2095163684.github.io/index.html">
+  <meta name="description" content="某些限定条件下,降低随机变量(特征)个数,得到一组”不相关”主变量 特征选择从原有特征中找出主要特征  方法 Filter(过滤式):探究特征本身特点,特征与特征和目标值之间关联 方差选择法: 低方差特征过滤(组内) 相关系数(组间)   Embedded(嵌入式):算法选择特征,特征与目标值之间关联 决策树: 信息熵,信息增益 正则化: L1,L2 深度学习: 卷积等      Filter(过">
+<meta property="og:type" content="article">
+<meta property="og:title" content="ML(3)_特征降维">
+<meta property="og:url" content="https://by2095163684.github.io/2024/07/30/ML-3/index.html">
 <meta property="og:site_name" content="⎛⎝&gt;⏝⏝&lt;⎛⎝">
+<meta property="og:description" content="某些限定条件下,降低随机变量(特征)个数,得到一组”不相关”主变量 特征选择从原有特征中找出主要特征  方法 Filter(过滤式):探究特征本身特点,特征与特征和目标值之间关联 方差选择法: 低方差特征过滤(组内) 相关系数(组间)   Embedded(嵌入式):算法选择特征,特征与目标值之间关联 决策树: 信息熵,信息增益 正则化: L1,L2 深度学习: 卷积等      Filter(过">
 <meta property="og:locale" content="zh_CN">
+<meta property="article:published_time" content="2024-07-30T08:29:25.000Z">
+<meta property="article:modified_time" content="2024-07-30T08:30:27.272Z">
 <meta property="article:author" content="废、寝、忘、食">
 <meta name="twitter:card" content="summary">
   
@@ -67,9 +71,7 @@
 </header>
 
       <div class="outer">
-        <section id="main">
-  
-    <article id="post-ML-3" class="h-entry article article-type-post" itemprop="blogPost" itemscope itemtype="https://schema.org/BlogPosting">
+        <section id="main"><article id="post-ML-3" class="h-entry article article-type-post" itemprop="blogPost" itemscope itemtype="https://schema.org/BlogPosting">
   <div class="article-meta">
     <a href="/2024/07/30/ML-3/" class="article-date">
   <time class="dt-published" datetime="2024-07-30T08:29:25.000Z" itemprop="datePublished">2024-07-30</time>
@@ -82,8 +84,8 @@
       <header class="article-header">
         
   
-    <h1 itemprop="name">
-      <a class="p-name article-title" href="/2024/07/30/ML-3/">ML(3)_特征降维</a>
+    <h1 class="p-name article-title" itemprop="headline name">
+      ML(3)_特征降维
     </h1>
   
 
@@ -164,162 +166,20 @@
     </footer>
   </div>
   
-</article>
-
-
-
+    
+<nav id="article-nav">
   
-    <article id="post-ML-2" class="h-entry article article-type-post" itemprop="blogPost" itemscope itemtype="https://schema.org/BlogPosting">
-  <div class="article-meta">
-    <a href="/2024/07/29/ML-2/" class="article-date">
-  <time class="dt-published" datetime="2024-07-29T09:01:58.000Z" itemprop="datePublished">2024-07-29</time>
-</a>
-    
-  </div>
-  <div class="article-inner">
-    
-    
-      <header class="article-header">
-        
   
-    <h1 itemprop="name">
-      <a class="p-name article-title" href="/2024/07/29/ML-2/">ML(2)_特征预处理</a>
-    </h1>
+    <a href="/2024/07/29/ML-2/" id="article-nav-older" class="article-nav-link-wrap">
+      <strong class="article-nav-caption">后一篇</strong>
+      <div class="article-nav-title">ML(2)_特征预处理</div>
+    </a>
   
+</nav>
 
-      </header>
-    
-    <div class="e-content article-entry" itemprop="articleBody">
-      
-        <p>通过一些函数转换将特征数据转换成更加合适算法模型的特征数据</p>
-<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> sklearn.preprocessing</span><br></pre></td></tr></table></figure>
-<ul>
-<li>无量纲化,统一数据规格,避免权重差异过大<ul>
-<li>归一化: 数据映射到区间(默认[0,1])内,鲁棒性较差,适合精确小数据场景<ul>
-<li>某一特征: <strong>X’ &#x3D; (X-min)&#x2F;(max-min)</strong>, <strong>X” &#x3D; X’*(mX-mi)+mi</strong>, ([0,1] -&gt; [mx,mi])</li>
-<li><code>sklearn.preprocessing.MinMaxScaler(feature_range=(0,1),...)</code><ul>
-<li><code>MinMaxScaler.fit_transform(X)</code>: X numpy.ndarray格式数据, 返回转换后形状相同的ndarray</li>
-</ul>
-</li>
-</ul>
-</li>
-<li>标准化: 数据变换到均值为0,标准差为1范围内,在已有样本足够多的情况下比较稳定,适合现代嘈杂大数据场景<ul>
-<li>某一特征: <strong>X’ &#x3D; (X-mean)&#x2F;σ</strong>, (列均值mean,列标准差σ)</li>
-<li><code>sklearn.preprocessing.StandardScaler()</code><ul>
-<li><code>StandardScaler.fit_transform(X)</code>: X numpy.ndarray格式数据, 返回转换后形状相同的ndarray</li>
-</ul>
-</li>
-</ul>
-</li>
-</ul>
-</li>
-</ul>
-
-      
-    </div>
-    <footer class="article-footer">
-      <a data-url="https://by2095163684.github.io/2024/07/29/ML-2/" data-id="clz85u5iv0002ggve0uyg5vm0" data-title="ML(2)_特征预处理" class="article-share-link"><span class="fa fa-share">分享</span></a>
-      
-      
-      
-    </footer>
-  </div>
   
 </article>
 
-
-
-  
-    <article id="post-ML-1" class="h-entry article article-type-post" itemprop="blogPost" itemscope itemtype="https://schema.org/BlogPosting">
-  <div class="article-meta">
-    <a href="/2024/07/29/ML-1/" class="article-date">
-  <time class="dt-published" datetime="2024-07-28T16:05:26.000Z" itemprop="datePublished">2024-07-29</time>
-</a>
-    
-  </div>
-  <div class="article-inner">
-    
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="p-name article-title" href="/2024/07/29/ML-1/">ML(1)_特征提取</a>
-    </h1>
-  
-
-      </header>
-    
-    <div class="e-content article-entry" itemprop="articleBody">
-      
-        <p>任意数据(文本或图像)转换为可用于ML的数字特征</p>
-<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> sklearn.feature_extraction</span><br></pre></td></tr></table></figure>
-<h3 id="字典特征提取"><a href="#字典特征提取" class="headerlink" title="字典特征提取"></a>字典特征提取</h3><ul>
-<li><code>sklearn.feature_extraction.DictVectorizer(sprase=True,...)</code>: sprase&#x3D;True返回sprase矩阵,反之二维数组<ul>
-<li><code>DictVectorizer.fit_transform(X)</code>: X字典或包含字典的迭代器,返回sprase矩阵(one-hot)</li>
-<li><code>DictVectorizer.inverse_transform(X)</code>: X array数组或sprase矩阵,返回转换前的数据格式</li>
-<li><code>DictVectorizer.get_feature_names_out()</code>: 返回类别名称</li>
-</ul>
-</li>
-</ul>
-<p>应用场景</p>
-<ul>
-<li>本身数据源就为字典</li>
-<li>数据集类别特征比较多<ul>
-<li>数据集特征 -&gt; 字典</li>
-<li>DictVectorizer转换</li>
-</ul>
-</li>
-</ul>
-<p>tips: sprase稀疏矩阵只指出非0值的位置,节省内存</p>
-<h3 id="文本特征提取"><a href="#文本特征提取" class="headerlink" title="文本特征提取"></a>文本特征提取</h3><ul>
-<li><code>sklearn.feature_extraction.text.CountVectorizer(sopt_words=[])</code>: (count计数)返回词频矩阵,sopt_words停用词<ul>
-<li><code>CountVectorizer.fit_transform(X)</code>: X文本或包含文本字符串可迭代对象,返回sprase矩阵</li>
-<li><code>CountVectorizer.inverse_transform(X)</code>: X array数组或sprase矩阵,返回转换前的数据格式</li>
-<li><code>CountVectorizer.get_feature_names_out()</code>: 返回单词列表</li>
-<li><code>.toarray()</code>: 查看密集矩阵(二维数组)</li>
-</ul>
-</li>
-</ul>
-<p>中文时使用jieba分词器</p>
-<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> jieba</span><br><span class="line">jb = jieba.cut(<span class="string">&quot;我爱北京天安门&quot;</span>)</span><br><span class="line">cut_jb = <span class="built_in">list</span>(jb)</span><br><span class="line">data = <span class="string">&quot; &quot;</span>.join(cut_jb)</span><br></pre></td></tr></table></figure>
-<p>一般更倾向于取能体现本篇文章的关键词</p>
-<p>TF-IDF文本特征提取,TF-IDF用以评估字词对文章的重要程度: TF-IDF &#x3D; TF*IDF</p>
-<ol>
-<li>TF(词频): 词在本文章出现频率</li>
-<li>IDF(逆向文档频率): 词语普遍重要性度量,某词的 IDF &#x3D; lg(总文件数&#x2F;含该词的文件数)</li>
-</ol>
-<ul>
-<li><code>sklearn.feature_extraction.text.TfidfVectorizer(stop_words=None,...)</code>: 返回词的权重矩阵<ul>
-<li><code>TfidfVectorizer.fit_transform(X)</code>: X文本或包含文本字符串可迭代对象,返回sprase矩阵</li>
-<li><code>TfidfVectorizer.inverse_transform(X)</code>: X array数组或sprase矩阵,返回转换前的数据格式</li>
-<li><code>TfidfVectorizer.get_feature_names_out()</code>: 返回单词列表</li>
-<li><code>.toarray()</code>: 查看密集矩阵(二维数组)</li>
-</ul>
-</li>
-</ul>
-
-      
-    </div>
-    <footer class="article-footer">
-      <a data-url="https://by2095163684.github.io/2024/07/29/ML-1/" data-id="clz85u5iu0001ggve9mtehcnf" data-title="ML(1)_特征提取" class="article-share-link"><span class="fa fa-share">分享</span></a>
-      
-      
-      
-    </footer>
-  </div>
-  
-</article>
-
-
-
-  
-
-
-  <nav id="page-nav">
-    
-    <span class="page-number current">1</span><a class="page-number" href="/page/2/">2</a><a class="page-number" href="/page/3/">3</a><span class="space">&hellip;</span><a class="page-number" href="/page/5/">5</a><a class="extend next" rel="next" href="/page/2/">下一页 &raquo;</a>
-  </nav>
 
 </section>
         
