@@ -4,13 +4,17 @@
   <meta charset="utf-8">
   
   
-  <title>⎛⎝&gt;⏝⏝&lt;⎛⎝</title>
+  <title>ML(4)_分类算法_1 | ⎛⎝&gt;⏝⏝&lt;⎛⎝</title>
   <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-  <meta property="og:type" content="website">
-<meta property="og:title" content="⎛⎝&gt;⏝⏝&lt;⎛⎝">
-<meta property="og:url" content="https://by2095163684.github.io/index.html">
+  <meta name="description" content="分类问题,目标值为类别 sklearn转换器和预估器 转换器 实例化一个transfer transfer.fit_transform() 对于文档建立分类词频矩阵,不能同时调用 fit() 计算 transform() 最终转换     预估器 实例化一个estimator estimator.fit(x_train, y_train) 计算 调用完毕,模型生成   模型评估 直接比对真实值和预">
+<meta property="og:type" content="article">
+<meta property="og:title" content="ML(4)_分类算法_1">
+<meta property="og:url" content="https://by2095163684.github.io/2024/07/31/ML-4/index.html">
 <meta property="og:site_name" content="⎛⎝&gt;⏝⏝&lt;⎛⎝">
+<meta property="og:description" content="分类问题,目标值为类别 sklearn转换器和预估器 转换器 实例化一个transfer transfer.fit_transform() 对于文档建立分类词频矩阵,不能同时调用 fit() 计算 transform() 最终转换     预估器 实例化一个estimator estimator.fit(x_train, y_train) 计算 调用完毕,模型生成   模型评估 直接比对真实值和预">
 <meta property="og:locale" content="zh_CN">
+<meta property="article:published_time" content="2024-07-31T08:43:17.000Z">
+<meta property="article:modified_time" content="2024-07-31T08:46:20.972Z">
 <meta property="article:author" content="废、寝、忘、食">
 <meta name="twitter:card" content="summary">
   
@@ -67,9 +71,7 @@
 </header>
 
       <div class="outer">
-        <section id="main">
-  
-    <article id="post-ML-4" class="h-entry article article-type-post" itemprop="blogPost" itemscope itemtype="https://schema.org/BlogPosting">
+        <section id="main"><article id="post-ML-4" class="h-entry article article-type-post" itemprop="blogPost" itemscope itemtype="https://schema.org/BlogPosting">
   <div class="article-meta">
     <a href="/2024/07/31/ML-4/" class="article-date">
   <time class="dt-published" datetime="2024-07-31T08:43:17.000Z" itemprop="datePublished">2024-07-31</time>
@@ -82,8 +84,8 @@
       <header class="article-header">
         
   
-    <h1 itemprop="name">
-      <a class="p-name article-title" href="/2024/07/31/ML-4/">ML(4)_分类算法_1</a>
+    <h1 class="p-name article-title" itemprop="headline name">
+      ML(4)_分类算法_1
     </h1>
   
 
@@ -167,178 +169,20 @@
     </footer>
   </div>
   
-</article>
-
-
-
+    
+<nav id="article-nav">
   
-    <article id="post-ML-3" class="h-entry article article-type-post" itemprop="blogPost" itemscope itemtype="https://schema.org/BlogPosting">
-  <div class="article-meta">
-    <a href="/2024/07/30/ML-3/" class="article-date">
-  <time class="dt-published" datetime="2024-07-30T08:29:25.000Z" itemprop="datePublished">2024-07-30</time>
-</a>
-    
-  </div>
-  <div class="article-inner">
-    
-    
-      <header class="article-header">
-        
   
-    <h1 itemprop="name">
-      <a class="p-name article-title" href="/2024/07/30/ML-3/">ML(3)_特征降维</a>
-    </h1>
+    <a href="/2024/07/30/ML-3/" id="article-nav-older" class="article-nav-link-wrap">
+      <strong class="article-nav-caption">后一篇</strong>
+      <div class="article-nav-title">ML(3)_特征降维</div>
+    </a>
   
+</nav>
 
-      </header>
-    
-    <div class="e-content article-entry" itemprop="articleBody">
-      
-        <p>某些限定条件下,降低随机变量(特征)个数,得到一组”不相关”主变量</p>
-<h3 id="特征选择"><a href="#特征选择" class="headerlink" title="特征选择"></a>特征选择</h3><p>从原有特征中找出主要特征</p>
-<ul>
-<li>方法<ul>
-<li>Filter(过滤式):探究特征本身特点,特征与特征和目标值之间关联<ul>
-<li>方差选择法: 低方差特征过滤(组内)</li>
-<li>相关系数(组间)</li>
-</ul>
-</li>
-<li>Embedded(嵌入式):算法选择特征,特征与目标值之间关联<ul>
-<li>决策树: 信息熵,信息增益</li>
-<li>正则化: L1,L2</li>
-<li>深度学习: 卷积等</li>
-</ul>
-</li>
-</ul>
-</li>
-</ul>
-<h4 id="Filter-过滤式"><a href="#Filter-过滤式" class="headerlink" title="Filter(过滤式)"></a>Filter(过滤式)</h4><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> sklearn.feature_selection</span><br></pre></td></tr></table></figure>
-<ul>
-<li>低方差特征过滤<ul>
-<li><code>sklearn.feature_selection.VarianceThreshold(threshold=0.0)</code>: 删除所有低方差(threshold阈值)特征<ul>
-<li><code>VarianceThreshold.fit_transform(X)</code>: X ndarray数组,返回值: 训练集差异低于threshold的特征将被删除,默认保留所有非0方差特征(相同值特征)</li>
-</ul>
-</li>
-</ul>
-</li>
-</ul>
-<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">from</span> scipy.stats <span class="keyword">import</span> pearsonr</span><br></pre></td></tr></table></figure>
-<ul>
-<li>相关系数: 皮尔逊相关系数,反映变量间相关系数密切程度的统计指标<ul>
-<li>r &#x3D; (n<em>Σx</em>y - Σx<em>Σy) &#x2F; [(√n</em>Σx^2 - (Σx)^2) * (√n*Σy^2 - (Σy)^2)]</li>
-<li>-1 &lt;&#x3D; r &lt;&#x3D;1<ul>
-<li>r&gt;0,两变量正相关;r&lt;0负相关</li>
-<li>|r|&#x3D;1,两变量完全相关;r&#x3D;0,无相关关系</li>
-<li>0 &lt;&#x3D; |r| &lt;&#x3D; 1,两变量存在一定程度相关,|r|越靠近1两变量关系越密切,靠近0相关性越弱</li>
-<li>|r|&lt;0.4低度相关,0.4 &lt;&#x3D; |r| &lt; 0.7显著性相关,0.7 &lt;&#x3D; |r| &lt; 1高度线性相关</li>
-</ul>
-</li>
-<li><code>r = pearsonr(x,y)</code>: x,y某两个特征</li>
-</ul>
-</li>
-</ul>
-<p>若特征和特征之间相关性很高</p>
-<ol>
-<li>选一个作为代表</li>
-<li>相同权重,加权求和</li>
-<li>主成分分析</li>
-</ol>
-<h3 id="主成分分析"><a href="#主成分分析" class="headerlink" title="主成分分析"></a>主成分分析</h3><p>高维数据 -&gt; 低维数据,减少冗余,可能会舍弃原有数据或创建新的变量;<br>数据维数压缩,尽可能降低原数据的维数(复杂度),损失少量信息</p>
-<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> sklearn.decomposition</span><br></pre></td></tr></table></figure>
-<ul>
-<li><code>sklearn.decomposition.PCA(n_components=None)</code>: 数据分解为较低维数空间<ul>
-<li>n_components<ul>
-<li>小数: 表示保留信息的百分比</li>
-<li>整数: 减少到多少特征</li>
-</ul>
-</li>
-<li><code>PCA.fit_transform(X)</code>: X ndarray数组, 返回转换后指定维度的array</li>
-</ul>
-</li>
-</ul>
-
-      
-    </div>
-    <footer class="article-footer">
-      <a data-url="https://by2095163684.github.io/2024/07/30/ML-3/" data-id="clz9lrsu000047gve7qaqbxik" data-title="ML(3)_特征降维" class="article-share-link"><span class="fa fa-share">分享</span></a>
-      
-      
-      
-    </footer>
-  </div>
   
 </article>
 
-
-
-  
-    <article id="post-ML-2" class="h-entry article article-type-post" itemprop="blogPost" itemscope itemtype="https://schema.org/BlogPosting">
-  <div class="article-meta">
-    <a href="/2024/07/29/ML-2/" class="article-date">
-  <time class="dt-published" datetime="2024-07-29T09:01:58.000Z" itemprop="datePublished">2024-07-29</time>
-</a>
-    
-  </div>
-  <div class="article-inner">
-    
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="p-name article-title" href="/2024/07/29/ML-2/">ML(2)_特征预处理</a>
-    </h1>
-  
-
-      </header>
-    
-    <div class="e-content article-entry" itemprop="articleBody">
-      
-        <p>通过一些函数转换将特征数据转换成更加合适算法模型的特征数据</p>
-<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> sklearn.preprocessing</span><br></pre></td></tr></table></figure>
-<ul>
-<li>无量纲化,统一数据规格,避免权重差异过大<ul>
-<li>归一化: 数据映射到区间(默认[0,1])内,鲁棒性较差,适合精确小数据场景<ul>
-<li>某一特征: <strong>X’ &#x3D; (X-min)&#x2F;(max-min)</strong>, <strong>X” &#x3D; X’*(mX-mi)+mi</strong>, ([0,1] -&gt; [mx,mi])</li>
-<li><code>sklearn.preprocessing.MinMaxScaler(feature_range=(0,1),...)</code><ul>
-<li><code>MinMaxScaler.fit_transform(X)</code>: X numpy.ndarray格式数据, 返回转换后形状相同的ndarray</li>
-</ul>
-</li>
-</ul>
-</li>
-<li>标准化: 数据变换到均值为0,标准差为1范围内,在已有样本足够多的情况下比较稳定,适合现代嘈杂大数据场景<ul>
-<li>某一特征: <strong>X’ &#x3D; (X-mean)&#x2F;σ</strong>, (列均值mean,列标准差σ)</li>
-<li><code>sklearn.preprocessing.StandardScaler()</code><ul>
-<li><code>StandardScaler.fit_transform(X)</code>: X numpy.ndarray格式数据, 返回转换后形状相同的ndarray</li>
-</ul>
-</li>
-</ul>
-</li>
-</ul>
-</li>
-</ul>
-
-      
-    </div>
-    <footer class="article-footer">
-      <a data-url="https://by2095163684.github.io/2024/07/29/ML-2/" data-id="clz9lrstx00017gve043h66xf" data-title="ML(2)_特征预处理" class="article-share-link"><span class="fa fa-share">分享</span></a>
-      
-      
-      
-    </footer>
-  </div>
-  
-</article>
-
-
-
-  
-
-
-  <nav id="page-nav">
-    
-    <span class="page-number current">1</span><a class="page-number" href="/page/2/">2</a><a class="page-number" href="/page/3/">3</a><span class="space">&hellip;</span><a class="page-number" href="/page/5/">5</a><a class="extend next" rel="next" href="/page/2/">下一页 &raquo;</a>
-  </nav>
 
 </section>
         

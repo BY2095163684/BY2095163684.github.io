@@ -69,6 +69,48 @@
       <div class="outer">
         <section id="main">
   
+    <article id="post-Pandas-I" class="h-entry article article-type-post" itemprop="blogPost" itemscope itemtype="https://schema.org/BlogPosting">
+  <div class="article-meta">
+    <a href="/2024/07/24/Pandas-I/" class="article-date">
+  <time class="dt-published" datetime="2024-07-24T08:38:37.000Z" itemprop="datePublished">2024-07-24</time>
+</a>
+    
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="p-name article-title" href="/2024/07/24/Pandas-I/">Pandas(I)</a>
+    </h1>
+  
+
+      </header>
+    
+    <div class="e-content article-entry" itemprop="articleBody">
+      
+        <p>Pandas专门用于数据挖掘,集Matplotlib,Numpy之力,又能画图又能算</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> pandas <span class="keyword">as</span> pd</span><br></pre></td></tr></table></figure>
+<h4 id="三种数据结构类型"><a href="#三种数据结构类型" class="headerlink" title="三种数据结构类型"></a>三种数据结构类型</h4><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># DataFrame可以理解为既有行索引又有列索引的二维数组</span></span><br><span class="line">temp1 = [[<span class="number">1</span>,<span class="number">2</span>,<span class="number">3</span>],[<span class="number">4</span>,<span class="number">5</span>,<span class="number">6</span>]]</span><br><span class="line"></span><br><span class="line">arr = pd.DataFrame(data=<span class="number">1</span>)   <span class="comment"># 为数组添加行列索引,实例化成为新的数据类型对象DataFrame</span></span><br><span class="line"></span><br><span class="line">arwos = [<span class="string">&quot;row&#123;&#125;&quot;</span>.<span class="built_in">format</span>(i) <span class="keyword">for</span> i <span class="keyword">in</span> <span class="built_in">range</span>(<span class="number">2</span>)]   <span class="comment"># 行索引</span></span><br><span class="line">acolumns = [<span class="string">&quot;column&#123;&#125;&quot;</span>.<span class="built_in">format</span>(i) <span class="keyword">for</span> i <span class="keyword">in</span> <span class="built_in">range</span>(<span class="number">3</span>)] <span class="comment"># 列索引</span></span><br><span class="line">arr1 = pd.DataFrame(data=<span class="number">1</span>,index=arows,columns=acolumns) <span class="comment"># 默认索引为数,更改自定义行列索引</span></span><br><span class="line"></span><br><span class="line"><span class="comment"># DataFrame常用属性</span></span><br><span class="line">attrubute_1 = arr1.shape    <span class="comment"># 形状</span></span><br><span class="line">attrubute_2 = arr1.index    <span class="comment"># 行索引</span></span><br><span class="line">attrubute_3 = arr1.columns  <span class="comment"># 列索引</span></span><br><span class="line">attrubute_4 = arr1.values   <span class="comment"># 除索引外的数组值</span></span><br><span class="line">attrubute_5 = arr1.T        <span class="comment"># 转置</span></span><br><span class="line"></span><br><span class="line"><span class="comment"># DataFrame常用方法</span></span><br><span class="line">method_1 = arr1.head(<span class="number">1</span>)     <span class="comment"># 数组前1行</span></span><br><span class="line">method_1 = arr1.tail(<span class="number">1</span>)     <span class="comment"># 数组后1行</span></span><br><span class="line"></span><br><span class="line"><span class="comment"># 索引设置</span></span><br><span class="line">arr1.index = [<span class="string">&quot;row_&#123;&#125;&quot;</span>.<span class="built_in">format</span>(i) <span class="keyword">for</span> i <span class="keyword">in</span> <span class="built_in">range</span>(<span class="number">2</span>)] <span class="comment"># 修改索引值,不可单独修改某一索引值,要改就一起改</span></span><br><span class="line">arr2 = arr1.reset_index(drop=<span class="literal">True</span>) <span class="comment"># 重设(行)索引,drop=True时删除原索引,False时原索引不变独占一列</span></span><br><span class="line"><span class="comment"># 也可传入字典实例化对象,键为索引</span></span><br><span class="line">temp2 = pd.DataFrame(&#123;<span class="string">&quot;month&quot;</span>:[<span class="number">1</span>,<span class="number">4</span>,<span class="number">7</span>,<span class="number">10</span>],</span><br><span class="line">                    <span class="string">&quot;year&quot;</span>:[<span class="number">2012</span>,<span class="number">2014</span>,<span class="number">2013</span>,<span class="number">2014</span>],</span><br><span class="line">                    <span class="string">&quot;sale&quot;</span>:[<span class="number">55</span>,<span class="number">40</span>,<span class="number">84</span>,<span class="number">31</span>]&#125;)</span><br><span class="line">temp3 = temp2.set_index(<span class="string">&quot;month&quot;</span>,drop=<span class="literal">False</span>) <span class="comment"># 用month列设置为新索引,drop=False不删除原month索引列</span></span><br><span class="line">temp4 = temp2.set_index([<span class="string">&quot;month&quot;</span>,<span class="string">&quot;year&quot;</span>])   <span class="comment"># 能设置多个索引列设置为新索引</span></span><br><span class="line">temp4.index     <span class="comment"># MultiIndex</span></span><br><span class="line"></span><br><span class="line"><span class="comment"># Series(带列索引的一维数组,相当于从矩阵抽一&quot;条&quot;出来)</span></span><br><span class="line">temp5 = temp2.iloc[<span class="number">1</span>,:] <span class="comment"># 截取第2行,全列索引数据</span></span><br><span class="line">atbt_1 = temp5.index    <span class="comment"># 索引</span></span><br><span class="line">atbt_2 = temp5.values   <span class="comment"># 值,type(temp5.values) = &lt;class &#x27;numpy.ndarray&#x27;&gt;</span></span><br><span class="line">data = pd.Series(np.arange(<span class="number">10</span>),index=[<span class="string">&quot;columes&#123;&#125;&quot;</span>.<span class="built_in">format</span>&#123;i&#125; <span class="keyword">for</span> i <span class="keyword">in</span> <span class="built_in">range</span>(<span class="number">10</span>)])    <span class="comment"># 创建Series,index索引</span></span><br></pre></td></tr></table></figure>
+<p><del>Panel</del> &gt; DataFrame &gt; Series</p>
+<h4 id="基本数据操作"><a href="#基本数据操作" class="headerlink" title="基本数据操作"></a>基本数据操作</h4><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><span class="line">data = pd.read_csv(<span class="string">&quot;./test.csv&quot;</span>)</span><br><span class="line"></span><br><span class="line"><span class="comment"># 索引操作</span></span><br><span class="line">data1 = data[<span class="string">&#x27;0&#x27;</span>][<span class="string">&#x27;1&#x27;</span>]  <span class="comment"># 直接索引,先列后行</span></span><br><span class="line">data2 = data.loc[<span class="string">&#x27;2024/7&#x27;</span>][<span class="string">&#x27;learn&#x27;</span>] <span class="comment"># 也可data2 = data.loc[&#x27;2024/7&#x27;,&#x27;learn&#x27;],按名索引</span></span><br><span class="line">data3 = data.iloc[<span class="number">1</span>,<span class="number">0</span>]  <span class="comment"># 按数字索引</span></span><br><span class="line"></span><br><span class="line"><span class="comment"># 赋值</span></span><br><span class="line">data.sale = <span class="number">60</span></span><br><span class="line">data.iloc[<span class="number">1</span>,<span class="number">0</span>] = <span class="number">5</span></span><br><span class="line"></span><br><span class="line"><span class="comment"># 排序</span></span><br><span class="line">data4 = data.sort_value(by=<span class="string">&quot;year&quot;</span>,ascending=<span class="literal">False</span>)  <span class="comment"># 数组值排序,按year列,ascending=False从大到小(降序)</span></span><br><span class="line">data5 = data.sort_value(by=[<span class="string">&quot;year&quot;</span>,<span class="string">&quot;sale&quot;</span>]) <span class="comment"># 先按year列,再按sale列,默认升序</span></span><br><span class="line">data6 = data.sort_index()   <span class="comment"># 索引排序,默认升序</span></span><br><span class="line"></span><br><span class="line"><span class="comment"># Series的排序更简单,只有一&quot;条&quot;,无需索引</span></span><br></pre></td></tr></table></figure>
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="https://by2095163684.github.io/2024/07/24/Pandas-I/" data-id="clz9lrsu3000b7gve1cxibjm2" data-title="Pandas(I)" class="article-share-link"><span class="fa fa-share">分享</span></a>
+      
+      
+      
+    </footer>
+  </div>
+  
+</article>
+
+
+
+  
     <article id="post-Numpy-II" class="h-entry article article-type-post" itemprop="blogPost" itemscope itemtype="https://schema.org/BlogPosting">
   <div class="article-meta">
     <a href="/2024/07/23/Numpy-II/" class="article-date">
@@ -101,7 +143,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="https://by2095163684.github.io/2024/07/23/Numpy-II/" data-id="clz85u5iz0008ggvecmvf78ul" data-title="Numpy(II)" class="article-share-link"><span class="fa fa-share">分享</span></a>
+      <a data-url="https://by2095163684.github.io/2024/07/23/Numpy-II/" data-id="clz9lrsu4000c7gvea9dy7ren" data-title="Numpy(II)" class="article-share-link"><span class="fa fa-share">分享</span></a>
       
       
       
@@ -155,50 +197,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="https://by2095163684.github.io/2024/07/22/Numpy-I/" data-id="clz85u5iz0007ggve3q28bxve" data-title="Numpy(I)" class="article-share-link"><span class="fa fa-share">分享</span></a>
-      
-      
-      
-    </footer>
-  </div>
-  
-</article>
-
-
-
-  
-    <article id="post-Matplotlib-II" class="h-entry article article-type-post" itemprop="blogPost" itemscope itemtype="https://schema.org/BlogPosting">
-  <div class="article-meta">
-    <a href="/2024/07/21/Matplotlib-II/" class="article-date">
-  <time class="dt-published" datetime="2024-07-21T08:58:52.000Z" itemprop="datePublished">2024-07-21</time>
-</a>
-    
-  </div>
-  <div class="article-inner">
-    
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="p-name article-title" href="/2024/07/21/Matplotlib-II/">Matplotlib(II)</a>
-    </h1>
-  
-
-      </header>
-    
-    <div class="e-content article-entry" itemprop="articleBody">
-      
-        <p>一些常用的图像绘制</p>
-<h4 id="准备数据"><a href="#准备数据" class="headerlink" title="准备数据"></a>准备数据</h4><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">x, y = [], []</span><br></pre></td></tr></table></figure>
-<h4 id="散点图-scatter"><a href="#散点图-scatter" class="headerlink" title="散点图(scatter)"></a>散点图(scatter)</h4><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">plt.scatter(x,y)</span><br></pre></td></tr></table></figure>
-<h4 id="柱状图-bar"><a href="#柱状图-bar" class="headerlink" title="柱状图(bar)"></a>柱状图(bar)</h4><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">plt.bar(x,y,width=<span class="number">0.2</span>)</span><br><span class="line"><span class="comment"># 一个刻度两类对比,再画一个</span></span><br><span class="line">z = []</span><br><span class="line">plt.bar([i+<span class="number">0.2</span> <span class="keyword">for</span> i <span class="keyword">in</span> x],z,width=<span class="number">0.2</span>)</span><br></pre></td></tr></table></figure>
-<h4 id="直方图-histogram"><a href="#直方图-histogram" class="headerlink" title="直方图(histogram)"></a>直方图(histogram)</h4><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">plt.hist(x,bins= ,density=<span class="literal">True</span>)  <span class="comment"># bins=组数=极差/组距, density是否显示频率</span></span><br></pre></td></tr></table></figure>
-<h4 id="饼图-pie"><a href="#饼图-pie" class="headerlink" title="饼图(pie)"></a>饼图(pie)</h4><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">plt.pie(x,color=<span class="string">&#x27;&#x27;</span>,autopct=<span class="string">&#x27;%1.2f%%&#x27;</span>)     <span class="comment"># %1.2f%%百分号保留两位</span></span><br><span class="line">plt.axis(<span class="string">&#x27;equal&#x27;</span>)   <span class="comment"># 保持圆形</span></span><br></pre></td></tr></table></figure>
-      
-    </div>
-    <footer class="article-footer">
-      <a data-url="https://by2095163684.github.io/2024/07/21/Matplotlib-II/" data-id="clz85u5ix0005ggve95xwa6ox" data-title="Matplotlib(II)" class="article-share-link"><span class="fa fa-share">分享</span></a>
+      <a data-url="https://by2095163684.github.io/2024/07/22/Numpy-I/" data-id="clz9lrsu200087gveb7xde5p4" data-title="Numpy(I)" class="article-share-link"><span class="fa fa-share">分享</span></a>
       
       
       
@@ -246,6 +245,10 @@
       <ul>
         
           <li>
+            <a href="/2024/07/31/ML-4/">ML(4)_分类算法_1</a>
+          </li>
+        
+          <li>
             <a href="/2024/07/30/ML-3/">ML(3)_特征降维</a>
           </li>
         
@@ -259,10 +262,6 @@
         
           <li>
             <a href="/2024/07/26/Pandas-III/">Pandas(III)</a>
-          </li>
-        
-          <li>
-            <a href="/2024/07/25/Pandas-II/">Pandas(II)</a>
           </li>
         
       </ul>
