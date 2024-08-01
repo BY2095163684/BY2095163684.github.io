@@ -69,6 +69,50 @@
       <div class="outer">
         <section id="main">
   
+    <article id="post-Pandas-II" class="h-entry article article-type-post" itemprop="blogPost" itemscope itemtype="https://schema.org/BlogPosting">
+  <div class="article-meta">
+    <a href="/2024/07/25/Pandas-II/" class="article-date">
+  <time class="dt-published" datetime="2024-07-25T08:05:12.000Z" itemprop="datePublished">2024-07-25</time>
+</a>
+    
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="p-name article-title" href="/2024/07/25/Pandas-II/">Pandas(II)</a>
+    </h1>
+  
+
+      </header>
+    
+    <div class="e-content article-entry" itemprop="articleBody">
+      
+        <p>能用于DataFrame的方法也适用于Series</p>
+<h4 id="算数运算-加减乘除"><a href="#算数运算-加减乘除" class="headerlink" title="算数运算(加减乘除)"></a>算数运算(加减乘除)</h4><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 加</span></span><br><span class="line">data1 = data[<span class="string">&#x27;year&#x27;</span>] + <span class="number">3</span>    <span class="comment"># 拿到year列后再+3</span></span><br><span class="line">data[<span class="string">&#x27;year&#x27;</span>] = data[<span class="string">&#x27;year&#x27;</span>].add(<span class="number">3</span>)</span><br><span class="line"></span><br><span class="line"><span class="comment"># 减</span></span><br><span class="line">data1 = data[<span class="string">&#x27;year&#x27;</span>].sub(<span class="number">3</span>)</span><br><span class="line"></span><br><span class="line"><span class="comment"># ......</span></span><br></pre></td></tr></table></figure>
+<h4 id="逻辑运算"><a href="#逻辑运算" class="headerlink" title="逻辑运算"></a>逻辑运算</h4><p>获得的bool数组都可以传入data[]索引得到满足的所有数组</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">data1 = data[<span class="string">&#x27;year&#x27;</span>] &gt; <span class="number">2013</span> <span class="comment"># year列满足True,反之False</span></span><br><span class="line">data2 = data[data[<span class="string">&#x27;year&#x27;</span>] &gt; <span class="number">2013</span>]   <span class="comment"># 筛选year列满足的所有数据</span></span><br><span class="line">data3 = (data[<span class="string">&#x27;year&#x27;</span>] &gt;<span class="number">2013</span>) &amp; (data[<span class="string">&#x27;sale&#x27;</span>] &gt; <span class="number">50</span>)  <span class="comment"># &quot;与&quot;逻辑</span></span><br><span class="line"></span><br><span class="line"><span class="comment"># 逻辑函数</span></span><br><span class="line">data4 = data.query(<span class="string">&#x27;year &gt; 2013 &amp; sale &gt; 50&#x27;</span>)</span><br><span class="line">data5 = data[<span class="string">&#x27;year&#x27;</span>].isin([<span class="number">2013</span>,<span class="number">2014</span>])  <span class="comment"># 满足范围</span></span><br></pre></td></tr></table></figure>
+<h4 id="统计运算"><a href="#统计运算" class="headerlink" title="统计运算"></a>统计运算</h4><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">data1 = data.describe() <span class="comment"># 直接返回常用统计特征数</span></span><br><span class="line">data2 = data.<span class="built_in">max</span>()  <span class="comment"># 最大值</span></span><br><span class="line">data3 = data.idxmax()   <span class="comment"># 最大值索引</span></span><br><span class="line">data4 = data.cumsum()   <span class="comment"># 累计加统计</span></span><br><span class="line"><span class="comment"># ......</span></span><br><span class="line"></span><br><span class="line"><span class="comment"># 自定义运算</span></span><br><span class="line">data5 = data[<span class="string">&#x27;sale&#x27;</span>].apply(<span class="keyword">lambda</span> x:x.<span class="built_in">max</span>(),axis=<span class="number">0</span>)</span><br></pre></td></tr></table></figure>
+<h4 id="画图"><a href="#画图" class="headerlink" title="画图"></a>画图</h4><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">data.plot(x=<span class="string">&#x27;year&#x27;</span>,y=<span class="string">&#x27;sale&#x27;</span>,kind=<span class="string">&#x27;line&#x27;</span>,stacked=<span class="literal">False</span>)  <span class="comment"># stacked=False堆叠效果关闭,柱状图有用</span></span><br></pre></td></tr></table></figure>
+<h4 id="文件读取和存储"><a href="#文件读取和存储" class="headerlink" title="文件读取和存储"></a>文件读取和存储</h4><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">data = pd.read_csv(<span class="string">&#x27;./test.csv&#x27;</span>,usecols=[<span class="string">&#x27;year&#x27;</span>,<span class="string">&#x27;sale&#x27;</span>],names=[<span class="string">&#x27;&#x27;</span>,<span class="string">&#x27;&#x27;</span>])    <span class="comment"># 读CSV文件,usecols选取需要数据(列),names字段(列名)</span></span><br><span class="line">data.to_csv(<span class="string">&#x27;./test.csv&#x27;</span>,columns=[<span class="string">&#x27;year&#x27;</span>],index=<span class="literal">False</span>,mode=<span class="string">&#x27;a&#x27;</span>,headers=<span class="literal">False</span>)  <span class="comment"># 写入CSV文件,columns选取需要数据(列),index=False不要行索引列,&#x27;a&#x27;追加写入,headers=False不要列索引</span></span><br><span class="line"></span><br><span class="line"><span class="comment"># hdf5文件存三维,key维度内放入二维DataFrame</span></span><br><span class="line">data = pd.read_hdf(<span class="string">&#x27;./test.h5&#x27;</span>,key=<span class="string">&#x27;test&#x27;</span>)    <span class="comment">#读HDF5文件,key是所读的键,读取需要tables模块</span></span><br><span class="line">pd.to_hdf(<span class="string">&#x27;./test.h5&#x27;</span>,key=<span class="string">&#x27;test&#x27;</span>)   <span class="comment"># 写入HDF5文件,key指定写入数据对应的键</span></span><br><span class="line"></span><br><span class="line">data = pd.read_json(<span class="string">&#x27;./test.json&#x27;</span>,orient=<span class="string">&#x27;records&#x27;</span>,lines=<span class="literal">True</span>)  <span class="comment"># 读json文件,lines=True分行格式化</span></span><br><span class="line">pd.to_json(<span class="string">&#x27;./test.json&#x27;</span>,orient=<span class="string">&#x27;records&#x27;</span>,lines=<span class="literal">True</span>)   <span class="comment"># 写json文件</span></span><br></pre></td></tr></table></figure>
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="https://by2095163684.github.io/2024/07/25/Pandas-II/" data-id="clzb0pyle000dyove1a5ibf60" data-title="Pandas(II)" class="article-share-link"><span class="fa fa-share">分享</span></a>
+      
+      
+      
+    </footer>
+  </div>
+  
+</article>
+
+
+
+  
     <article id="post-Pandas-I" class="h-entry article article-type-post" itemprop="blogPost" itemscope itemtype="https://schema.org/BlogPosting">
   <div class="article-meta">
     <a href="/2024/07/24/Pandas-I/" class="article-date">
@@ -99,7 +143,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="https://by2095163684.github.io/2024/07/24/Pandas-I/" data-id="clz9lrsu3000b7gve1cxibjm2" data-title="Pandas(I)" class="article-share-link"><span class="fa fa-share">分享</span></a>
+      <a data-url="https://by2095163684.github.io/2024/07/24/Pandas-I/" data-id="clzb0pyle000byove1up41xv4" data-title="Pandas(I)" class="article-share-link"><span class="fa fa-share">分享</span></a>
       
       
       
@@ -143,61 +187,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="https://by2095163684.github.io/2024/07/23/Numpy-II/" data-id="clz9lrsu4000c7gvea9dy7ren" data-title="Numpy(II)" class="article-share-link"><span class="fa fa-share">分享</span></a>
-      
-      
-      
-    </footer>
-  </div>
-  
-</article>
-
-
-
-  
-    <article id="post-Numpy-I" class="h-entry article article-type-post" itemprop="blogPost" itemscope itemtype="https://schema.org/BlogPosting">
-  <div class="article-meta">
-    <a href="/2024/07/22/Numpy-I/" class="article-date">
-  <time class="dt-published" datetime="2024-07-22T08:45:56.000Z" itemprop="datePublished">2024-07-22</time>
-</a>
-    
-  </div>
-  <div class="article-inner">
-    
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="p-name article-title" href="/2024/07/22/Numpy-I/">Numpy(I)</a>
-    </h1>
-  
-
-      </header>
-    
-    <div class="e-content article-entry" itemprop="articleBody">
-      
-        <p>高效的运算工具,快速处理任意维度数组</p>
-<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> numpy <span class="keyword">as</span> np</span><br></pre></td></tr></table></figure>
-
-<ul>
-<li>ndarray属性<ul>
-<li><strong>ndarray.shape</strong> 形状(元组)</li>
-<li><strong>ndarray.ndim</strong> 维度(数组嵌套深度)</li>
-<li><strong>ndarray.size</strong> 数量</li>
-<li><strong>ndarray.itemsize</strong> 字节长(1Byte &#x3D; 8bit,1字节等于8比特位)</li>
-<li><strong>ndarray.dtype</strong> 类型(整型默认int64,浮点型默认float32)</li>
-</ul>
-</li>
-</ul>
-<p>tips: - ndarray.shape -&gt; (a,b,c,…), a为第一层数组元素个数,b为第二层,…,len((a,b,c,…))是维度</p>
-<p>二维矩阵: 行与列<br>三维: 一维内嵌套多个二维</p>
-<h4 id="生成数组-ndarray"><a href="#生成数组-ndarray" class="headerlink" title="生成数组 -&gt; ndarray"></a>生成数组 -&gt; ndarray</h4><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 二维0/1数组</span></span><br><span class="line">test0 = np.zeros(shape=(<span class="number">3</span>,<span class="number">4</span>),dtype=np.int32)   <span class="comment"># 参数为shape,指定dtype为float32</span></span><br><span class="line">test1 = np.ones([<span class="number">3</span>,<span class="number">4</span>],dtype=<span class="string">&quot;float32&quot;</span>)</span><br><span class="line"></span><br><span class="line"><span class="comment"># 现有数组转换</span></span><br><span class="line">x = [[<span class="number">1</span>,<span class="number">2</span>,<span class="number">3</span>],[<span class="number">4</span>,<span class="number">5</span>,<span class="number">6</span>]]</span><br><span class="line">x1 = np.array(x)     <span class="comment"># 深拷贝</span></span><br><span class="line">x2 = np.asarray(x)   <span class="comment"># 浅拷贝,相当于索引的形式,并未创建一个新的</span></span><br><span class="line"></span><br><span class="line"><span class="comment"># 固定范围数组</span></span><br><span class="line">arr1 = np.linspace(<span class="number">0</span>,<span class="number">100</span>,<span class="number">10</span>) <span class="comment"># 闭区间[0,100]中的等距离的10个数</span></span><br><span class="line">arr2 = np.arange(<span class="number">0</span>,<span class="number">100</span>,<span class="number">10</span>)   <span class="comment"># 半闭半开区间[0,100),步长10,类似range</span></span><br><span class="line"></span><br><span class="line"><span class="comment"># 随机数组</span></span><br><span class="line">arr3 = np.random.uniform(low=-<span class="number">1</span>,high=<span class="number">1</span>,size=<span class="number">1000</span>)   <span class="comment"># 均匀分布,[-1,1),数组长1000</span></span><br><span class="line">arr4 = np.random.normal(loc=<span class="number">1</span>,scale=<span class="number">0.01</span>,size=<span class="number">1000</span>) <span class="comment"># 正态分布,期望1,标准差0.01,数组长1000</span></span><br></pre></td></tr></table></figure>
-<h4 id="对数组的操作"><a href="#对数组的操作" class="headerlink" title="对数组的操作"></a>对数组的操作</h4><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 切片索引</span></span><br><span class="line">arr = np.random.normal(loc=<span class="number">0</span>,scale=<span class="number">1</span>,size=(<span class="number">8</span>,<span class="number">10</span>))  <span class="comment"># size也可传入形状元组</span></span><br><span class="line">a1 = arr[<span class="number">0</span>,<span class="number">0</span>:<span class="number">3</span>]  <span class="comment"># 获得第1行前3列数据,区间半闭半开</span></span><br><span class="line">a2 = arr[<span class="number">2</span>,<span class="number">2</span>,<span class="number">3</span>]  <span class="comment"># 三维</span></span><br><span class="line"></span><br><span class="line"><span class="comment"># 形状修改</span></span><br><span class="line">a3 = arr.reshape((<span class="number">10</span>,<span class="number">8</span>))   <span class="comment"># 仅改变形状为10行8列,不改变元素顺序</span></span><br><span class="line">arr.resize((<span class="number">10</span>,<span class="number">8</span>))         <span class="comment"># 无返回值,直接修改原始数据,效果与ndarray.reshape()一样</span></span><br><span class="line">a4 = arr.T                 <span class="comment"># 矩阵转置</span></span><br><span class="line"></span><br><span class="line"><span class="comment"># 类型修改</span></span><br><span class="line">a5 = arr.astype(<span class="string">&quot;int32&quot;</span>)  <span class="comment"># 元素类型转换,type(arr) = numpy.ndarray</span></span><br><span class="line">a6 = arr.tobytes()        <span class="comment"># 序列化为bytes数据类型,type(arr) = &lt;class &#x27;bytes&#x27;&gt;</span></span><br><span class="line"></span><br><span class="line"><span class="comment"># 数组去重</span></span><br><span class="line">np.unique(arr)            <span class="comment"># 会降维</span></span><br></pre></td></tr></table></figure>
-      
-    </div>
-    <footer class="article-footer">
-      <a data-url="https://by2095163684.github.io/2024/07/22/Numpy-I/" data-id="clz9lrsu200087gveb7xde5p4" data-title="Numpy(I)" class="article-share-link"><span class="fa fa-share">分享</span></a>
+      <a data-url="https://by2095163684.github.io/2024/07/23/Numpy-II/" data-id="clzb0pyld000ayoveaduib7gz" data-title="Numpy(II)" class="article-share-link"><span class="fa fa-share">分享</span></a>
       
       
       
@@ -232,7 +222,7 @@
   <div class="widget-wrap">
     <h3 class="widget-title">归档</h3>
     <div class="widget">
-      <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/archives/2024/07/">七月 2024</a></li></ul>
+      <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/archives/2024/08/">八月 2024</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2024/07/">七月 2024</a></li></ul>
     </div>
   </div>
 
@@ -243,6 +233,10 @@
     <h3 class="widget-title">最新文章</h3>
     <div class="widget">
       <ul>
+        
+          <li>
+            <a href="/2024/08/01/ML-5/">ML(5)_分类算法_2</a>
+          </li>
         
           <li>
             <a href="/2024/07/31/ML-4/">ML(4)_分类算法_1</a>
@@ -258,10 +252,6 @@
         
           <li>
             <a href="/2024/07/29/ML-1/">ML(1)_特征提取</a>
-          </li>
-        
-          <li>
-            <a href="/2024/07/26/Pandas-III/">Pandas(III)</a>
           </li>
         
       </ul>

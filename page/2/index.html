@@ -69,6 +69,67 @@
       <div class="outer">
         <section id="main">
   
+    <article id="post-ML-2" class="h-entry article article-type-post" itemprop="blogPost" itemscope itemtype="https://schema.org/BlogPosting">
+  <div class="article-meta">
+    <a href="/2024/07/29/ML-2/" class="article-date">
+  <time class="dt-published" datetime="2024-07-29T09:01:58.000Z" itemprop="datePublished">2024-07-29</time>
+</a>
+    
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="p-name article-title" href="/2024/07/29/ML-2/">ML(2)_特征预处理</a>
+    </h1>
+  
+
+      </header>
+    
+    <div class="e-content article-entry" itemprop="articleBody">
+      
+        <p>通过一些函数转换将特征数据转换成更加合适算法模型的特征数据</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> sklearn.preprocessing</span><br></pre></td></tr></table></figure>
+<ul>
+<li>无量纲化,统一数据规格,避免权重差异过大<ul>
+<li>归一化: 数据映射到区间(默认[0,1])内,鲁棒性较差,适合精确小数据场景<ul>
+<li>某一特征: <strong>X’ &#x3D; (X-min)&#x2F;(max-min)</strong>, <strong>X” &#x3D; X’*(mX-mi)+mi</strong>, ([0,1] -&gt; [mx,mi])</li>
+<li><code>sklearn.preprocessing.MinMaxScaler(feature_range=(0,1),...)</code><ul>
+<li><code>MinMaxScaler.fit_transform(X)</code>: X numpy.ndarray格式数据, 返回转换后形状相同的ndarray</li>
+</ul>
+</li>
+</ul>
+</li>
+<li>标准化: 数据变换到均值为0,标准差为1范围内,在已有样本足够多的情况下比较稳定,适合现代嘈杂大数据场景<ul>
+<li>某一特征: <strong>X’ &#x3D; (X-mean)&#x2F;σ</strong>, (列均值mean,列标准差σ)</li>
+<li><code>sklearn.preprocessing.StandardScaler()</code><ul>
+<li><code>StandardScaler.fit_transform(X)</code>: X numpy.ndarray格式数据, 返回转换后形状相同的ndarray</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="https://by2095163684.github.io/2024/07/29/ML-2/" data-id="clzb0pyl90002yove3k11esmn" data-title="ML(2)_特征预处理" class="article-share-link"><span class="fa fa-share">分享</span></a>
+      
+      
+      
+    </footer>
+  </div>
+  
+</article>
+
+
+
+  
     <article id="post-ML-1" class="h-entry article article-type-post" itemprop="blogPost" itemscope itemtype="https://schema.org/BlogPosting">
   <div class="article-meta">
     <a href="/2024/07/29/ML-1/" class="article-date">
@@ -141,7 +202,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="https://by2095163684.github.io/2024/07/29/ML-1/" data-id="clz9lrstz00027gve15r9akae" data-title="ML(1)_特征提取" class="article-share-link"><span class="fa fa-share">分享</span></a>
+      <a data-url="https://by2095163684.github.io/2024/07/29/ML-1/" data-id="clzb0pyl80001yove50gb3sxq" data-title="ML(1)_特征提取" class="article-share-link"><span class="fa fa-share">分享</span></a>
       
       
       
@@ -185,51 +246,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="https://by2095163684.github.io/2024/07/26/Pandas-III/" data-id="clz9lrsu3000a7gved6pr9s9q" data-title="Pandas(III)" class="article-share-link"><span class="fa fa-share">分享</span></a>
-      
-      
-      
-    </footer>
-  </div>
-  
-</article>
-
-
-
-  
-    <article id="post-Pandas-II" class="h-entry article article-type-post" itemprop="blogPost" itemscope itemtype="https://schema.org/BlogPosting">
-  <div class="article-meta">
-    <a href="/2024/07/25/Pandas-II/" class="article-date">
-  <time class="dt-published" datetime="2024-07-25T08:05:12.000Z" itemprop="datePublished">2024-07-25</time>
-</a>
-    
-  </div>
-  <div class="article-inner">
-    
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="p-name article-title" href="/2024/07/25/Pandas-II/">Pandas(II)</a>
-    </h1>
-  
-
-      </header>
-    
-    <div class="e-content article-entry" itemprop="articleBody">
-      
-        <p>能用于DataFrame的方法也适用于Series</p>
-<h4 id="算数运算-加减乘除"><a href="#算数运算-加减乘除" class="headerlink" title="算数运算(加减乘除)"></a>算数运算(加减乘除)</h4><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 加</span></span><br><span class="line">data1 = data[<span class="string">&#x27;year&#x27;</span>] + <span class="number">3</span>    <span class="comment"># 拿到year列后再+3</span></span><br><span class="line">data[<span class="string">&#x27;year&#x27;</span>] = data[<span class="string">&#x27;year&#x27;</span>].add(<span class="number">3</span>)</span><br><span class="line"></span><br><span class="line"><span class="comment"># 减</span></span><br><span class="line">data1 = data[<span class="string">&#x27;year&#x27;</span>].sub(<span class="number">3</span>)</span><br><span class="line"></span><br><span class="line"><span class="comment"># ......</span></span><br></pre></td></tr></table></figure>
-<h4 id="逻辑运算"><a href="#逻辑运算" class="headerlink" title="逻辑运算"></a>逻辑运算</h4><p>获得的bool数组都可以传入data[]索引得到满足的所有数组</p>
-<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">data1 = data[<span class="string">&#x27;year&#x27;</span>] &gt; <span class="number">2013</span> <span class="comment"># year列满足True,反之False</span></span><br><span class="line">data2 = data[data[<span class="string">&#x27;year&#x27;</span>] &gt; <span class="number">2013</span>]   <span class="comment"># 筛选year列满足的所有数据</span></span><br><span class="line">data3 = (data[<span class="string">&#x27;year&#x27;</span>] &gt;<span class="number">2013</span>) &amp; (data[<span class="string">&#x27;sale&#x27;</span>] &gt; <span class="number">50</span>)  <span class="comment"># &quot;与&quot;逻辑</span></span><br><span class="line"></span><br><span class="line"><span class="comment"># 逻辑函数</span></span><br><span class="line">data4 = data.query(<span class="string">&#x27;year &gt; 2013 &amp; sale &gt; 50&#x27;</span>)</span><br><span class="line">data5 = data[<span class="string">&#x27;year&#x27;</span>].isin([<span class="number">2013</span>,<span class="number">2014</span>])  <span class="comment"># 满足范围</span></span><br></pre></td></tr></table></figure>
-<h4 id="统计运算"><a href="#统计运算" class="headerlink" title="统计运算"></a>统计运算</h4><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">data1 = data.describe() <span class="comment"># 直接返回常用统计特征数</span></span><br><span class="line">data2 = data.<span class="built_in">max</span>()  <span class="comment"># 最大值</span></span><br><span class="line">data3 = data.idxmax()   <span class="comment"># 最大值索引</span></span><br><span class="line">data4 = data.cumsum()   <span class="comment"># 累计加统计</span></span><br><span class="line"><span class="comment"># ......</span></span><br><span class="line"></span><br><span class="line"><span class="comment"># 自定义运算</span></span><br><span class="line">data5 = data[<span class="string">&#x27;sale&#x27;</span>].apply(<span class="keyword">lambda</span> x:x.<span class="built_in">max</span>(),axis=<span class="number">0</span>)</span><br></pre></td></tr></table></figure>
-<h4 id="画图"><a href="#画图" class="headerlink" title="画图"></a>画图</h4><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">data.plot(x=<span class="string">&#x27;year&#x27;</span>,y=<span class="string">&#x27;sale&#x27;</span>,kind=<span class="string">&#x27;line&#x27;</span>,stacked=<span class="literal">False</span>)  <span class="comment"># stacked=False堆叠效果关闭,柱状图有用</span></span><br></pre></td></tr></table></figure>
-<h4 id="文件读取和存储"><a href="#文件读取和存储" class="headerlink" title="文件读取和存储"></a>文件读取和存储</h4><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">data = pd.read_csv(<span class="string">&#x27;./test.csv&#x27;</span>,usecols=[<span class="string">&#x27;year&#x27;</span>,<span class="string">&#x27;sale&#x27;</span>],names=[<span class="string">&#x27;&#x27;</span>,<span class="string">&#x27;&#x27;</span>])    <span class="comment"># 读CSV文件,usecols选取需要数据(列),names字段(列名)</span></span><br><span class="line">data.to_csv(<span class="string">&#x27;./test.csv&#x27;</span>,columns=[<span class="string">&#x27;year&#x27;</span>],index=<span class="literal">False</span>,mode=<span class="string">&#x27;a&#x27;</span>,headers=<span class="literal">False</span>)  <span class="comment"># 写入CSV文件,columns选取需要数据(列),index=False不要行索引列,&#x27;a&#x27;追加写入,headers=False不要列索引</span></span><br><span class="line"></span><br><span class="line"><span class="comment"># hdf5文件存三维,key维度内放入二维DataFrame</span></span><br><span class="line">data = pd.read_hdf(<span class="string">&#x27;./test.h5&#x27;</span>,key=<span class="string">&#x27;test&#x27;</span>)    <span class="comment">#读HDF5文件,key是所读的键,读取需要tables模块</span></span><br><span class="line">pd.to_hdf(<span class="string">&#x27;./test.h5&#x27;</span>,key=<span class="string">&#x27;test&#x27;</span>)   <span class="comment"># 写入HDF5文件,key指定写入数据对应的键</span></span><br><span class="line"></span><br><span class="line">data = pd.read_json(<span class="string">&#x27;./test.json&#x27;</span>,orient=<span class="string">&#x27;records&#x27;</span>,lines=<span class="literal">True</span>)  <span class="comment"># 读json文件,lines=True分行格式化</span></span><br><span class="line">pd.to_json(<span class="string">&#x27;./test.json&#x27;</span>,orient=<span class="string">&#x27;records&#x27;</span>,lines=<span class="literal">True</span>)   <span class="comment"># 写json文件</span></span><br></pre></td></tr></table></figure>
-      
-    </div>
-    <footer class="article-footer">
-      <a data-url="https://by2095163684.github.io/2024/07/25/Pandas-II/" data-id="clz9lrsu200097gvedtsxdvny" data-title="Pandas(II)" class="article-share-link"><span class="fa fa-share">分享</span></a>
+      <a data-url="https://by2095163684.github.io/2024/07/26/Pandas-III/" data-id="clzb0pyle000cyove8axueq4f" data-title="Pandas(III)" class="article-share-link"><span class="fa fa-share">分享</span></a>
       
       
       
@@ -264,7 +281,7 @@
   <div class="widget-wrap">
     <h3 class="widget-title">归档</h3>
     <div class="widget">
-      <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/archives/2024/07/">七月 2024</a></li></ul>
+      <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/archives/2024/08/">八月 2024</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2024/07/">七月 2024</a></li></ul>
     </div>
   </div>
 
@@ -275,6 +292,10 @@
     <h3 class="widget-title">最新文章</h3>
     <div class="widget">
       <ul>
+        
+          <li>
+            <a href="/2024/08/01/ML-5/">ML(5)_分类算法_2</a>
+          </li>
         
           <li>
             <a href="/2024/07/31/ML-4/">ML(4)_分类算法_1</a>
@@ -290,10 +311,6 @@
         
           <li>
             <a href="/2024/07/29/ML-1/">ML(1)_特征提取</a>
-          </li>
-        
-          <li>
-            <a href="/2024/07/26/Pandas-III/">Pandas(III)</a>
           </li>
         
       </ul>
