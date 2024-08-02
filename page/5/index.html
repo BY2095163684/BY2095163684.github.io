@@ -69,10 +69,10 @@
       <div class="outer">
         <section id="main">
   
-    <article id="post-Jupyter-Notebook" class="h-entry article article-type-post" itemprop="blogPost" itemscope itemtype="https://schema.org/BlogPosting">
+    <article id="post-Numpy-I" class="h-entry article article-type-post" itemprop="blogPost" itemscope itemtype="https://schema.org/BlogPosting">
   <div class="article-meta">
-    <a href="/2024/07/19/Jupyter-Notebook/" class="article-date">
-  <time class="dt-published" datetime="2024-07-19T15:26:55.000Z" itemprop="datePublished">2024-07-19</time>
+    <a href="/2024/07/22/Numpy-I/" class="article-date">
+  <time class="dt-published" datetime="2024-07-22T08:45:56.000Z" itemprop="datePublished">2024-07-22</time>
 </a>
     
   </div>
@@ -83,7 +83,7 @@
         
   
     <h1 itemprop="name">
-      <a class="p-name article-title" href="/2024/07/19/Jupyter-Notebook/">Jupyter Notebook</a>
+      <a class="p-name article-title" href="/2024/07/22/Numpy-I/">Numpy(I)</a>
     </h1>
   
 
@@ -91,33 +91,27 @@
     
     <div class="e-content article-entry" itemprop="articleBody">
       
-        <p>web版的IPython, 可用于<strong>编程&#x2F;文档&#x2F;笔记&#x2F;展示</strong>, <strong>.ipynb</strong>文件格式是用于计算型叙述的<strong>JSON文档格式</strong>的正式规范</p>
-<p>进入jupyter notebook,<strong>new一个.ipynb新文件</strong>,使用<strong>cell</strong>操作运行</p>
-<figure class="highlight powershell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">activate py39</span><br><span class="line">jupyter notebook</span><br></pre></td></tr></table></figure>
-<p>要关联Anaconda的环境需要</p>
-<figure class="highlight powershell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">conda install nb_conda</span><br></pre></td></tr></table></figure>
+        <p>高效的运算工具,快速处理任意维度数组</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> numpy <span class="keyword">as</span> np</span><br></pre></td></tr></table></figure>
+
 <ul>
-<li>一些快捷键<ul>
-<li><strong>esc</strong> 命令模式<ul>
-<li><strong>shift + Enter</strong>: 运行当前 IN 行输出 OUT 并跳转下一行 IN</li>
-<li><strong>ctrl + Enter</strong>: 运行当前 IN 并停留</li>
-<li><strong>Y</strong>: code 模式</li>
-<li><strong>M</strong>: markdown 模式</li>
-<li><strong>A&#x2F;B</strong>: 当前 cell 上&#x2F;下 添加 IN</li>
-</ul>
-</li>
-<li>编辑模式<ul>
-<li><strong>Tab</strong>补全</li>
+<li>ndarray属性<ul>
+<li><strong>ndarray.shape</strong> 形状(元组)</li>
+<li><strong>ndarray.ndim</strong> 维度(数组嵌套深度)</li>
+<li><strong>ndarray.size</strong> 数量</li>
+<li><strong>ndarray.itemsize</strong> 字节长(1Byte &#x3D; 8bit,1字节等于8比特位)</li>
+<li><strong>ndarray.dtype</strong> 类型(整型默认int64,浮点型默认float32)</li>
 </ul>
 </li>
 </ul>
-</li>
-</ul>
-
+<p>tips: - ndarray.shape -&gt; (a,b,c,…), a为第一层数组元素个数,b为第二层,…,len((a,b,c,…))是维度</p>
+<p>二维矩阵: 行与列<br>三维: 一维内嵌套多个二维</p>
+<h4 id="生成数组-ndarray"><a href="#生成数组-ndarray" class="headerlink" title="生成数组 -&gt; ndarray"></a>生成数组 -&gt; ndarray</h4><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 二维0/1数组</span></span><br><span class="line">test0 = np.zeros(shape=(<span class="number">3</span>,<span class="number">4</span>),dtype=np.int32)   <span class="comment"># 参数为shape,指定dtype为float32</span></span><br><span class="line">test1 = np.ones([<span class="number">3</span>,<span class="number">4</span>],dtype=<span class="string">&quot;float32&quot;</span>)</span><br><span class="line"></span><br><span class="line"><span class="comment"># 现有数组转换</span></span><br><span class="line">x = [[<span class="number">1</span>,<span class="number">2</span>,<span class="number">3</span>],[<span class="number">4</span>,<span class="number">5</span>,<span class="number">6</span>]]</span><br><span class="line">x1 = np.array(x)     <span class="comment"># 深拷贝</span></span><br><span class="line">x2 = np.asarray(x)   <span class="comment"># 浅拷贝,相当于索引的形式,并未创建一个新的</span></span><br><span class="line"></span><br><span class="line"><span class="comment"># 固定范围数组</span></span><br><span class="line">arr1 = np.linspace(<span class="number">0</span>,<span class="number">100</span>,<span class="number">10</span>) <span class="comment"># 闭区间[0,100]中的等距离的10个数</span></span><br><span class="line">arr2 = np.arange(<span class="number">0</span>,<span class="number">100</span>,<span class="number">10</span>)   <span class="comment"># 半闭半开区间[0,100),步长10,类似range</span></span><br><span class="line"></span><br><span class="line"><span class="comment"># 随机数组</span></span><br><span class="line">arr3 = np.random.uniform(low=-<span class="number">1</span>,high=<span class="number">1</span>,size=<span class="number">1000</span>)   <span class="comment"># 均匀分布,[-1,1),数组长1000</span></span><br><span class="line">arr4 = np.random.normal(loc=<span class="number">1</span>,scale=<span class="number">0.01</span>,size=<span class="number">1000</span>) <span class="comment"># 正态分布,期望1,标准差0.01,数组长1000</span></span><br></pre></td></tr></table></figure>
+<h4 id="对数组的操作"><a href="#对数组的操作" class="headerlink" title="对数组的操作"></a>对数组的操作</h4><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 切片索引</span></span><br><span class="line">arr = np.random.normal(loc=<span class="number">0</span>,scale=<span class="number">1</span>,size=(<span class="number">8</span>,<span class="number">10</span>))  <span class="comment"># size也可传入形状元组</span></span><br><span class="line">a1 = arr[<span class="number">0</span>,<span class="number">0</span>:<span class="number">3</span>]  <span class="comment"># 获得第1行前3列数据,区间半闭半开</span></span><br><span class="line">a2 = arr[<span class="number">2</span>,<span class="number">2</span>,<span class="number">3</span>]  <span class="comment"># 三维</span></span><br><span class="line"></span><br><span class="line"><span class="comment"># 形状修改</span></span><br><span class="line">a3 = arr.reshape((<span class="number">10</span>,<span class="number">8</span>))   <span class="comment"># 仅改变形状为10行8列,不改变元素顺序</span></span><br><span class="line">arr.resize((<span class="number">10</span>,<span class="number">8</span>))         <span class="comment"># 无返回值,直接修改原始数据,效果与ndarray.reshape()一样</span></span><br><span class="line">a4 = arr.T                 <span class="comment"># 矩阵转置</span></span><br><span class="line"></span><br><span class="line"><span class="comment"># 类型修改</span></span><br><span class="line">a5 = arr.astype(<span class="string">&quot;int32&quot;</span>)  <span class="comment"># 元素类型转换,type(arr) = numpy.ndarray</span></span><br><span class="line">a6 = arr.tobytes()        <span class="comment"># 序列化为bytes数据类型,type(arr) = &lt;class &#x27;bytes&#x27;&gt;</span></span><br><span class="line"></span><br><span class="line"><span class="comment"># 数组去重</span></span><br><span class="line">np.unique(arr)            <span class="comment"># 会降维</span></span><br></pre></td></tr></table></figure>
       
     </div>
     <footer class="article-footer">
-      <a data-url="https://by2095163684.github.io/2024/07/19/Jupyter-Notebook/" data-id="clzb0pyl50000yove0wcsbjya" data-title="Jupyter Notebook" class="article-share-link"><span class="fa fa-share">分享</span></a>
+      <a data-url="https://by2095163684.github.io/2024/07/22/Numpy-I/" data-id="clzcifdql000c1gve8pbq9dmo" data-title="Numpy(I)" class="article-share-link"><span class="fa fa-share">分享</span></a>
       
       
       
@@ -129,10 +123,10 @@
 
 
   
-    <article id="post-配置Anaconda虚拟环境" class="h-entry article article-type-post" itemprop="blogPost" itemscope itemtype="https://schema.org/BlogPosting">
+    <article id="post-Matplotlib-II" class="h-entry article article-type-post" itemprop="blogPost" itemscope itemtype="https://schema.org/BlogPosting">
   <div class="article-meta">
-    <a href="/2024/07/18/%E9%85%8D%E7%BD%AEAnaconda%E8%99%9A%E6%8B%9F%E7%8E%AF%E5%A2%83/" class="article-date">
-  <time class="dt-published" datetime="2024-07-18T15:10:33.000Z" itemprop="datePublished">2024-07-18</time>
+    <a href="/2024/07/21/Matplotlib-II/" class="article-date">
+  <time class="dt-published" datetime="2024-07-21T08:58:52.000Z" itemprop="datePublished">2024-07-21</time>
 </a>
     
   </div>
@@ -143,7 +137,7 @@
         
   
     <h1 itemprop="name">
-      <a class="p-name article-title" href="/2024/07/18/%E9%85%8D%E7%BD%AEAnaconda%E8%99%9A%E6%8B%9F%E7%8E%AF%E5%A2%83/">配置Anaconda虚拟环境</a>
+      <a class="p-name article-title" href="/2024/07/21/Matplotlib-II/">Matplotlib(II)</a>
     </h1>
   
 
@@ -151,12 +145,16 @@
     
     <div class="e-content article-entry" itemprop="articleBody">
       
-        <p>环境配置, 阻挡萌新的第一大关！</p>
-
+        <p>一些常用的图像绘制</p>
+<h4 id="准备数据"><a href="#准备数据" class="headerlink" title="准备数据"></a>准备数据</h4><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">x, y = [], []</span><br></pre></td></tr></table></figure>
+<h4 id="散点图-scatter"><a href="#散点图-scatter" class="headerlink" title="散点图(scatter)"></a>散点图(scatter)</h4><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">plt.scatter(x,y)</span><br></pre></td></tr></table></figure>
+<h4 id="柱状图-bar"><a href="#柱状图-bar" class="headerlink" title="柱状图(bar)"></a>柱状图(bar)</h4><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">plt.bar(x,y,width=<span class="number">0.2</span>)</span><br><span class="line"><span class="comment"># 一个刻度两类对比,再画一个</span></span><br><span class="line">z = []</span><br><span class="line">plt.bar([i+<span class="number">0.2</span> <span class="keyword">for</span> i <span class="keyword">in</span> x],z,width=<span class="number">0.2</span>)</span><br></pre></td></tr></table></figure>
+<h4 id="直方图-histogram"><a href="#直方图-histogram" class="headerlink" title="直方图(histogram)"></a>直方图(histogram)</h4><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">plt.hist(x,bins= ,density=<span class="literal">True</span>)  <span class="comment"># bins=组数=极差/组距, density是否显示频率</span></span><br></pre></td></tr></table></figure>
+<h4 id="饼图-pie"><a href="#饼图-pie" class="headerlink" title="饼图(pie)"></a>饼图(pie)</h4><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">plt.pie(x,color=<span class="string">&#x27;&#x27;</span>,autopct=<span class="string">&#x27;%1.2f%%&#x27;</span>)     <span class="comment"># %1.2f%%百分号保留两位</span></span><br><span class="line">plt.axis(<span class="string">&#x27;equal&#x27;</span>)   <span class="comment"># 保持圆形</span></span><br></pre></td></tr></table></figure>
       
     </div>
     <footer class="article-footer">
-      <a data-url="https://by2095163684.github.io/2024/07/18/%E9%85%8D%E7%BD%AEAnaconda%E8%99%9A%E6%8B%9F%E7%8E%AF%E5%A2%83/" data-id="clzb0pylf000eyovehlfe6h7r" data-title="配置Anaconda虚拟环境" class="article-share-link"><span class="fa fa-share">分享</span></a>
+      <a data-url="https://by2095163684.github.io/2024/07/21/Matplotlib-II/" data-id="clzcifdql000a1gvea3802hqf" data-title="Matplotlib(II)" class="article-share-link"><span class="fa fa-share">分享</span></a>
       
       
       
@@ -168,10 +166,10 @@
 
 
   
-    <article id="post-My-Blog-Test" class="h-entry article article-type-post" itemprop="blogPost" itemscope itemtype="https://schema.org/BlogPosting">
+    <article id="post-Matplotlib-I" class="h-entry article article-type-post" itemprop="blogPost" itemscope itemtype="https://schema.org/BlogPosting">
   <div class="article-meta">
-    <a href="/2024/07/17/My-Blog-Test/" class="article-date">
-  <time class="dt-published" datetime="2024-07-17T09:35:05.000Z" itemprop="datePublished">2024-07-17</time>
+    <a href="/2024/07/20/Matplotlib-I/" class="article-date">
+  <time class="dt-published" datetime="2024-07-20T15:25:37.000Z" itemprop="datePublished">2024-07-20</time>
 </a>
     
   </div>
@@ -182,7 +180,7 @@
         
   
     <h1 itemprop="name">
-      <a class="p-name article-title" href="/2024/07/17/My-Blog-Test/">My Blog Test</a>
+      <a class="p-name article-title" href="/2024/07/20/Matplotlib-I/">Matplotlib(I)</a>
     </h1>
   
 
@@ -190,12 +188,27 @@
     
     <div class="e-content article-entry" itemprop="articleBody">
       
-        <p>Create a bolg, this is my blog test.</p>
+        <p>Matplotlib用于开发2D&#x2F;3D图表, 以渐进、交互式方式实现数据可视化</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> matplotlib.pyplot <span class="keyword">as</span> plt</span><br><span class="line"><span class="comment"># %matplotlib inline</span></span><br></pre></td></tr></table></figure>
 
+<h4 id="层次结构"><a href="#层次结构" class="headerlink" title="层次结构"></a>层次结构</h4><ul>
+<li>容器层<ul>
+<li>画板层(Canvas)</li>
+<li>画布层(Figure): <strong>plt.figure()</strong></li>
+<li>绘图区&#x2F;坐标系(axes): <strong>plt.subplot()</strong><ul>
+<li>辅助显示层: 刻度标识等</li>
+<li>图像层: 图像样式等</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+<h3 id="以曲线图为例"><a href="#以曲线图为例" class="headerlink" title="以曲线图为例"></a>以曲线图为例</h3><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 创建画布(容器层)</span></span><br><span class="line">plt.figure()    <span class="comment"># figure(figsize=(长,宽), dpi=清晰度)</span></span><br><span class="line"></span><br><span class="line"><span class="comment"># 曲线图</span></span><br><span class="line">plt.plot(x,y1,color=<span class="string">&#x27;r&#x27;</span>,label=<span class="string">&#x27;A&#x27;</span>)   <span class="comment"># plot([横], [纵])</span></span><br><span class="line">plt.plot(x,y2,color=<span class="string">&#x27;b&#x27;</span>,linestyle=<span class="string">&#x27;--&#x27;</span>,label=<span class="string">&#x27;B&#x27;</span>)   <span class="comment"># 再画一条(同一图内)</span></span><br><span class="line"></span><br><span class="line"><span class="comment"># 确定自变量x和因变量y, 可以画数学函数图像</span></span><br><span class="line"></span><br><span class="line"><span class="comment"># 显示图例</span></span><br><span class="line">plt.legend(loc=<span class="number">0</span>)   <span class="comment"># 默认&#x27;best&#x27;</span></span><br><span class="line"></span><br><span class="line"><span class="comment"># 刻度(辅助显示层)</span></span><br><span class="line">x_lable = [<span class="string">&#x27;&#123;&#125;月&#x27;</span>.<span class="built_in">format</span>(i) <span class="keyword">for</span> i <span class="keyword">in</span> x]</span><br><span class="line">plt.xticks(x[::<span class="number">5</span>],x_lable[::<span class="number">5</span>])</span><br><span class="line">plt.yticks(<span class="built_in">range</span>(<span class="number">0</span>,<span class="number">30</span>,<span class="number">5</span>))</span><br><span class="line"></span><br><span class="line"><span class="comment">#网格(辅助显示层)</span></span><br><span class="line">plt.grid(<span class="literal">True</span>, linestyle=<span class="string">&#x27;--&#x27;</span>, alpha=<span class="number">0.5</span>)   <span class="comment"># (True, 样式, 透明度)</span></span><br><span class="line"></span><br><span class="line"><span class="comment">#标题(辅助显示层)</span></span><br><span class="line">plt.xlabel(<span class="string">&#x27;&#x27;</span>)</span><br><span class="line">plt.ylabel(<span class="string">&#x27;&#x27;</span>)</span><br><span class="line">plt.title(<span class="string">&#x27;&#x27;</span>)</span><br><span class="line"></span><br><span class="line"><span class="comment"># 保存</span></span><br><span class="line">plt.savefig(<span class="string">&#x27;./test.png&#x27;</span>)</span><br><span class="line"></span><br><span class="line"><span class="comment"># 展示</span></span><br><span class="line">plt.show()  <span class="comment"># 会释放figure资源,需放在保存之后</span></span><br></pre></td></tr></table></figure>
+<h3 id="多个绘图区"><a href="#多个绘图区" class="headerlink" title="多个绘图区"></a>多个绘图区</h3><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br></pre></td><td class="code"><pre><span class="line">figure, axes = plt.subplots(nrows=<span class="number">1</span>,ncols=<span class="number">2</span>,figsize=(,),dpi=)   <span class="comment"># 一行两列,返回画布(Figure)与绘图区(axes)</span></span><br><span class="line"></span><br><span class="line"><span class="comment"># 调用axes对象来区分图</span></span><br><span class="line">axes[<span class="number">0</span>].plot(x,y1,color=<span class="string">&#x27;r&#x27;</span>,label=<span class="string">&#x27;A&#x27;</span>)  <span class="comment"># 第一个</span></span><br><span class="line">axes[<span class="number">1</span>].plot(x,y2,color=<span class="string">&#x27;b&#x27;</span>,linestyle=<span class="string">&#x27;--&#x27;</span>,label=<span class="string">&#x27;B&#x27;</span>)   <span class="comment"># 第二个</span></span><br><span class="line"></span><br><span class="line">axes[<span class="number">0</span>].legend(loc=<span class="number">0</span>)</span><br><span class="line">axes[<span class="number">1</span>].legend(loc=<span class="number">0</span>)</span><br><span class="line"></span><br><span class="line"><span class="comment"># 刻度</span></span><br><span class="line">axes[<span class="number">0</span>].set_xticks()    <span class="comment"># axes.set_xticklabels() 字符串标签刻度</span></span><br><span class="line">axes[<span class="number">0</span>].set_yticks()    <span class="comment"># 依版本而定,具体看官方文档</span></span><br><span class="line">axes[<span class="number">1</span>].set_xticks()</span><br><span class="line">axes[<span class="number">1</span>].set_yticks()</span><br><span class="line"></span><br><span class="line"><span class="comment"># 网格 (tips: Alt + 鼠标可选中多行更改)</span></span><br><span class="line">axes[<span class="number">0</span>].grid(<span class="literal">True</span>, linestyle=<span class="string">&#x27;--&#x27;</span>, alpha=<span class="number">0.5</span>)</span><br><span class="line">axes[<span class="number">1</span>].grid(<span class="literal">True</span>, linestyle=<span class="string">&#x27;--&#x27;</span>, alpha=<span class="number">0.5</span>)</span><br><span class="line"></span><br><span class="line"><span class="comment"># 标签</span></span><br><span class="line">axes[<span class="number">0</span>].set_xlabel(<span class="string">&#x27;&#x27;</span>)</span><br><span class="line">axes[<span class="number">0</span>].set_ylabel(<span class="string">&#x27;&#x27;</span>)</span><br><span class="line">axes[<span class="number">0</span>].set_title(<span class="string">&#x27;&#x27;</span>)</span><br><span class="line">axes[<span class="number">1</span>].set_xlabel(<span class="string">&#x27;&#x27;</span>)</span><br><span class="line">axes[<span class="number">1</span>].set_ylabel(<span class="string">&#x27;&#x27;</span>)</span><br><span class="line">axes[<span class="number">1</span>].set_title(<span class="string">&#x27;&#x27;</span>)</span><br><span class="line"></span><br><span class="line">plt.show()</span><br></pre></td></tr></table></figure>
       
     </div>
     <footer class="article-footer">
-      <a data-url="https://by2095163684.github.io/2024/07/17/My-Blog-Test/" data-id="clzb0pylc0008yovegfuk1w9x" data-title="My Blog Test" class="article-share-link"><span class="fa fa-share">分享</span></a>
+      <a data-url="https://by2095163684.github.io/2024/07/20/Matplotlib-I/" data-id="clzcifdqk00091gve383cg6uw" data-title="Matplotlib(I)" class="article-share-link"><span class="fa fa-share">分享</span></a>
       
       
       
@@ -211,7 +224,7 @@
 
   <nav id="page-nav">
     
-    <a class="extend prev" rel="prev" href="/page/4/">&laquo; 上一页</a><a class="page-number" href="/">1</a><span class="space">&hellip;</span><a class="page-number" href="/page/3/">3</a><a class="page-number" href="/page/4/">4</a><span class="page-number current">5</span>
+    <a class="extend prev" rel="prev" href="/page/4/">&laquo; 上一页</a><a class="page-number" href="/">1</a><span class="space">&hellip;</span><a class="page-number" href="/page/3/">3</a><a class="page-number" href="/page/4/">4</a><span class="page-number current">5</span><a class="page-number" href="/page/6/">6</a><a class="extend next" rel="next" href="/page/6/">下一页 &raquo;</a>
   </nav>
 
 </section>
@@ -243,23 +256,23 @@
       <ul>
         
           <li>
+            <a href="/2024/08/02/ML-8/">ML(8)_无监督学习</a>
+          </li>
+        
+          <li>
+            <a href="/2024/08/02/ML-7/">ML(7)_逻辑回归</a>
+          </li>
+        
+          <li>
+            <a href="/2024/08/02/ML-6/">ML(6)_线性回归</a>
+          </li>
+        
+          <li>
             <a href="/2024/08/01/ML-5/">ML(5)_分类算法_2</a>
           </li>
         
           <li>
             <a href="/2024/07/31/ML-4/">ML(4)_分类算法_1</a>
-          </li>
-        
-          <li>
-            <a href="/2024/07/30/ML-3/">ML(3)_特征降维</a>
-          </li>
-        
-          <li>
-            <a href="/2024/07/29/ML-2/">ML(2)_特征预处理</a>
-          </li>
-        
-          <li>
-            <a href="/2024/07/29/ML-1/">ML(1)_特征提取</a>
           </li>
         
       </ul>

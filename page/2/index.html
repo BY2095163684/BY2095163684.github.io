@@ -69,10 +69,10 @@
       <div class="outer">
         <section id="main">
   
-    <article id="post-ML-2" class="h-entry article article-type-post" itemprop="blogPost" itemscope itemtype="https://schema.org/BlogPosting">
+    <article id="post-ML-5" class="h-entry article article-type-post" itemprop="blogPost" itemscope itemtype="https://schema.org/BlogPosting">
   <div class="article-meta">
-    <a href="/2024/07/29/ML-2/" class="article-date">
-  <time class="dt-published" datetime="2024-07-29T09:01:58.000Z" itemprop="datePublished">2024-07-29</time>
+    <a href="/2024/08/01/ML-5/" class="article-date">
+  <time class="dt-published" datetime="2024-08-01T08:31:10.000Z" itemprop="datePublished">2024-08-01</time>
 </a>
     
   </div>
@@ -83,7 +83,7 @@
         
   
     <h1 itemprop="name">
-      <a class="p-name article-title" href="/2024/07/29/ML-2/">ML(2)_特征预处理</a>
+      <a class="p-name article-title" href="/2024/08/01/ML-5/">ML(5)_分类算法_2</a>
     </h1>
   
 
@@ -91,26 +91,77 @@
     
     <div class="e-content article-entry" itemprop="articleBody">
       
-        <p>通过一些函数转换将特征数据转换成更加合适算法模型的特征数据</p>
-<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> sklearn.preprocessing</span><br></pre></td></tr></table></figure>
+        <h3 id="朴素贝叶斯算法"><a href="#朴素贝叶斯算法" class="headerlink" title="朴素贝叶斯算法"></a>朴素贝叶斯算法</h3><p>应用场景: 文本分类</p>
+<p>“朴素”: 特征与特征之间相互独立</p>
+<p>贝叶斯公式: P(C|W) &#x3D; [P(W|C) * P(C)] &#x2F; P(W)</p>
+<p>拉普拉斯平滑系数</p>
 <ul>
-<li>无量纲化,统一数据规格,避免权重差异过大<ul>
-<li>归一化: 数据映射到区间(默认[0,1])内,鲁棒性较差,适合精确小数据场景<ul>
-<li>某一特征: <strong>X’ &#x3D; (X-min)&#x2F;(max-min)</strong>, <strong>X” &#x3D; X’*(mX-mi)+mi</strong>, ([0,1] -&gt; [mx,mi])</li>
-<li><code>sklearn.preprocessing.MinMaxScaler(feature_range=(0,1),...)</code><ul>
-<li><code>MinMaxScaler.fit_transform(X)</code>: X numpy.ndarray格式数据, 返回转换后形状相同的ndarray</li>
+<li>P(F1|C) &#x3D; (Ni+α) &#x2F; N+α*m<ul>
+<li>α为指定系数,一般为1</li>
+<li>m为统计特征词个数</li>
+</ul>
+</li>
+</ul>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> sklearn.naive_bayes</span><br></pre></td></tr></table></figure>
+<ul>
+<li><code>sklearn.naive_bayes.MultinomialNB(alpha=1.0)</code><ul>
+<li>朴素贝叶斯分类</li>
+<li>alpha: 拉普拉斯平滑系数</li>
+</ul>
+</li>
+</ul>
+<h3 id="决策树"><a href="#决策树" class="headerlink" title="决策树"></a>决策树</h3><p>非常”朴素”,可理解为if-else</p>
+<ul>
+<li>香农定义信息: 消除随机不定性的数据<ul>
+<li>信息熵: <strong>H(X) &#x3D; - Σ P(xi)logb(P(xi))</strong>, b∈R</li>
+<li>信息增益: 特征A对训练集D的信息增益g(D,A),定义为集合D的信息熵H(D)与特征A给定条件下D的信息条件熵H(D|A)之差, <strong>g(D,A) &#x3D; H(D) - H(D|A)</strong></li>
+</ul>
+</li>
+</ul>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> sklearn.tree</span><br></pre></td></tr></table></figure>
+<ul>
+<li><code>sklearn.tree.DecisionTreeClassifier(criterion=&quot;gini&quot;,max_depth=None,random_state=None)</code><ul>
+<li>决策树分类器</li>
+<li>默认criterion&#x3D;”gini”(基尼系数),也可选信息增益的熵”entropy”</li>
+<li>max_depth树的深度大小</li>
+<li>random_state随机数种子</li>
+</ul>
+</li>
+<li><code>sklearn.tree.export_graphviz(estimator,out_file=&quot;tree.dot&quot;,feature_names=[&quot;,&quot;])</code><ul>
+<li>决策树可视化,导出DOT格式</li>
+</ul>
+</li>
+</ul>
+<h3 id="随机森林"><a href="#随机森林" class="headerlink" title="随机森林"></a>随机森林</h3><p>集成学习方法: 通过建立几个模型组合的来解决单一预测问题,原理是生成多个分类器&#x2F;模型,各自独立地学习和作出预测,这些预测最后结合成组合预测,因此优于任何一个单分类的做出预测</p>
+<p>随机森林是一个包含多个决策树的分类器(少数服从多数)</p>
+<ul>
+<li>N为训练样本数,M为特征数<ul>
+<li>1次随机选出1个样本,重复N次,可能出现重复样本<ul>
+<li>训练集随机<ul>
+<li>BootStrap: 随机有放回抽样</li>
 </ul>
 </li>
 </ul>
 </li>
-<li>标准化: 数据变换到均值为0,标准差为1范围内,在已有样本足够多的情况下比较稳定,适合现代嘈杂大数据场景<ul>
-<li>某一特征: <strong>X’ &#x3D; (X-mean)&#x2F;σ</strong>, (列均值mean,列标准差σ)</li>
-<li><code>sklearn.preprocessing.StandardScaler()</code><ul>
-<li><code>StandardScaler.fit_transform(X)</code>: X numpy.ndarray格式数据, 返回转换后形状相同的ndarray</li>
+<li>随机选出m个特征,m &lt;&lt; M,建立决策树<ul>
+<li>特征随机</li>
 </ul>
 </li>
 </ul>
 </li>
+</ul>
+<p>“愚笨的树终会消失,聪明的树脱颖而出”</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> sklearn.ensemble</span><br></pre></td></tr></table></figure>
+<ul>
+<li><code>sklearn.ensemble.RandomForestClassifier(n_estimators=10,criterion=&quot;gini&quot;,max_depth=None,bootstrap=True,random_state=None,min_samples_split=2)</code><ul>
+<li>随机森林分类器</li>
+<li>n_estimators: 决策树数目</li>
+<li>默认criterion&#x3D;”gini”</li>
+<li>max_depth: 树的深度大小</li>
+<li>max_features&#x3D;”auto”: 每个决策树最大特征数量</li>
+<li>bootstrap: 是否放回抽样</li>
+<li>min_samples_split: 节点划分最少样本数</li>
+<li>min_samples_leaf: 叶子节点最小样本数</li>
 </ul>
 </li>
 </ul>
@@ -118,7 +169,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="https://by2095163684.github.io/2024/07/29/ML-2/" data-id="clzb0pyl90002yove3k11esmn" data-title="ML(2)_特征预处理" class="article-share-link"><span class="fa fa-share">分享</span></a>
+      <a data-url="https://by2095163684.github.io/2024/08/01/ML-5/" data-id="clzcifdqj00051gve0kygdnav" data-title="ML(5)_分类算法_2" class="article-share-link"><span class="fa fa-share">分享</span></a>
       
       
       
@@ -130,10 +181,10 @@
 
 
   
-    <article id="post-ML-1" class="h-entry article article-type-post" itemprop="blogPost" itemscope itemtype="https://schema.org/BlogPosting">
+    <article id="post-ML-4" class="h-entry article article-type-post" itemprop="blogPost" itemscope itemtype="https://schema.org/BlogPosting">
   <div class="article-meta">
-    <a href="/2024/07/29/ML-1/" class="article-date">
-  <time class="dt-published" datetime="2024-07-28T16:05:26.000Z" itemprop="datePublished">2024-07-29</time>
+    <a href="/2024/07/31/ML-4/" class="article-date">
+  <time class="dt-published" datetime="2024-07-31T08:43:17.000Z" itemprop="datePublished">2024-07-31</time>
 </a>
     
   </div>
@@ -144,7 +195,7 @@
         
   
     <h1 itemprop="name">
-      <a class="p-name article-title" href="/2024/07/29/ML-1/">ML(1)_特征提取</a>
+      <a class="p-name article-title" href="/2024/07/31/ML-4/">ML(4)_分类算法_1</a>
     </h1>
   
 
@@ -152,49 +203,68 @@
     
     <div class="e-content article-entry" itemprop="articleBody">
       
-        <p>任意数据(文本或图像)转换为可用于ML的数字特征</p>
-<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> sklearn.feature_extraction</span><br></pre></td></tr></table></figure>
-<h3 id="字典特征提取"><a href="#字典特征提取" class="headerlink" title="字典特征提取"></a>字典特征提取</h3><ul>
-<li><code>sklearn.feature_extraction.DictVectorizer(sprase=True,...)</code>: sprase&#x3D;True返回sprase矩阵,反之二维数组<ul>
-<li><code>DictVectorizer.fit_transform(X)</code>: X字典或包含字典的迭代器,返回sprase矩阵(one-hot)</li>
-<li><code>DictVectorizer.inverse_transform(X)</code>: X array数组或sprase矩阵,返回转换前的数据格式</li>
-<li><code>DictVectorizer.get_feature_names_out()</code>: 返回类别名称</li>
+        <p>分类问题,目标值为类别</p>
+<h3 id="sklearn转换器和预估器"><a href="#sklearn转换器和预估器" class="headerlink" title="sklearn转换器和预估器"></a>sklearn转换器和预估器</h3><ul>
+<li>转换器<ol>
+<li>实例化一个transfer</li>
+<li><code>transfer.fit_transform()</code> 对于文档建立分类词频矩阵,不能同时调用<ul>
+<li><code>fit()</code> 计算</li>
+<li><code>transform()</code> 最终转换</li>
 </ul>
 </li>
-</ul>
-<p>应用场景</p>
-<ul>
-<li>本身数据源就为字典</li>
-<li>数据集类别特征比较多<ul>
-<li>数据集特征 -&gt; 字典</li>
-<li>DictVectorizer转换</li>
-</ul>
-</li>
-</ul>
-<p>tips: sprase稀疏矩阵只指出非0值的位置,节省内存</p>
-<h3 id="文本特征提取"><a href="#文本特征提取" class="headerlink" title="文本特征提取"></a>文本特征提取</h3><ul>
-<li><code>sklearn.feature_extraction.text.CountVectorizer(sopt_words=[])</code>: (count计数)返回词频矩阵,sopt_words停用词<ul>
-<li><code>CountVectorizer.fit_transform(X)</code>: X文本或包含文本字符串可迭代对象,返回sprase矩阵</li>
-<li><code>CountVectorizer.inverse_transform(X)</code>: X array数组或sprase矩阵,返回转换前的数据格式</li>
-<li><code>CountVectorizer.get_feature_names_out()</code>: 返回单词列表</li>
-<li><code>.toarray()</code>: 查看密集矩阵(二维数组)</li>
-</ul>
-</li>
-</ul>
-<p>中文时使用jieba分词器</p>
-<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> jieba</span><br><span class="line">jb = jieba.cut(<span class="string">&quot;我爱北京天安门&quot;</span>)</span><br><span class="line">cut_jb = <span class="built_in">list</span>(jb)</span><br><span class="line">data = <span class="string">&quot; &quot;</span>.join(cut_jb)</span><br></pre></td></tr></table></figure>
-<p>一般更倾向于取能体现本篇文章的关键词</p>
-<p>TF-IDF文本特征提取,TF-IDF用以评估字词对文章的重要程度: TF-IDF &#x3D; TF*IDF</p>
-<ol>
-<li>TF(词频): 词在本文章出现频率</li>
-<li>IDF(逆向文档频率): 词语普遍重要性度量,某词的 IDF &#x3D; lg(总文件数&#x2F;含该词的文件数)</li>
 </ol>
+</li>
+<li>预估器<ol>
+<li>实例化一个estimator</li>
+<li><code>estimator.fit(x_train, y_train)</code> 计算<ul>
+<li>调用完毕,模型生成</li>
+</ul>
+</li>
+<li>模型评估<ol>
+<li>直接比对真实值和预测值<ul>
+<li><code>y_predict = estimator.predict()</code></li>
+</ul>
+</li>
+<li>计算准确率<ul>
+<li><code>accuracy = estimator.score(x_test,y_test)</code></li>
+</ul>
+</li>
+</ol>
+</li>
+</ol>
+</li>
+</ul>
+<h3 id="K-近邻算法-KNN"><a href="#K-近邻算法-KNN" class="headerlink" title="K-近邻算法(KNN)"></a>K-近邻算法(KNN)</h3><p>根据”邻居”判断类别</p>
+<p>若一个样本在特征空间中的k个最相似(即特征空间中最邻近,欧氏距离等)的样本中的大多数属于某一个类别,则该样本也属于这个类别</p>
+<p>k值过小,容易受异常值影响;k值过大,容易受样本不均衡的影响</p>
+<p>适用场景: 几千~几万的小数据规模</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> sklearn.neighbors</span><br></pre></td></tr></table></figure>
 <ul>
-<li><code>sklearn.feature_extraction.text.TfidfVectorizer(stop_words=None,...)</code>: 返回词的权重矩阵<ul>
-<li><code>TfidfVectorizer.fit_transform(X)</code>: X文本或包含文本字符串可迭代对象,返回sprase矩阵</li>
-<li><code>TfidfVectorizer.inverse_transform(X)</code>: X array数组或sprase矩阵,返回转换前的数据格式</li>
-<li><code>TfidfVectorizer.get_feature_names_out()</code>: 返回单词列表</li>
-<li><code>.toarray()</code>: 查看密集矩阵(二维数组)</li>
+<li><code>sklearn.neighbors.KNeighborsClassifier(n_neighbors=5,algorithm=&#39;auto&#39;)</code><ul>
+<li><code>n_neighbors=5</code> : k值</li>
+<li><code>KNeighborsClassifier.fit(x_train, y_train)</code>:计算,生成模型</li>
+</ul>
+</li>
+</ul>
+<h4 id="模型选择与调优"><a href="#模型选择与调优" class="headerlink" title="模型选择与调优"></a>模型选择与调优</h4><p>n折交叉验证: 将拿到的训练数据,分为训练和验证集,数据分n份,其中一份作验证集,经4次测试,每次都更换不同验证集,即得到4组模型的结果,取平均值</p>
+<p>超参数搜索-网格搜索(Grid-Search)</p>
+<p>有些需要手动指定的参数(如k值),称超参数,手动过程繁杂,需对模型预设几种超参数组合,每组超参数都交叉验证评估,最后选出最优参数组合建立模型</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> sklearn.model_selection</span><br></pre></td></tr></table></figure>
+<ul>
+<li><code>sklearn.model_selection.GridSearchCV(estimator,param_grid=None,cv=None)</code><ul>
+<li>对预估器的指定参数值进行详尽搜索</li>
+<li>estimator: 预估器对象</li>
+<li>param_grid: 预估器参数(dict){“n_neighbors”:[1,3,5]}</li>
+<li>cv: 指定几折交叉验证</li>
+<li>fit(): 输入训练数据(GridSearchCV继承了预估器的对象,可以调用方法)</li>
+<li>score(): 准确率</li>
+<li>结果<ul>
+<li>best_params_</li>
+<li>best_score_</li>
+<li>best_estimator_</li>
+<li>cv_results_</li>
+</ul>
+</li>
 </ul>
 </li>
 </ul>
@@ -202,7 +272,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="https://by2095163684.github.io/2024/07/29/ML-1/" data-id="clzb0pyl80001yove50gb3sxq" data-title="ML(1)_特征提取" class="article-share-link"><span class="fa fa-share">分享</span></a>
+      <a data-url="https://by2095163684.github.io/2024/07/31/ML-4/" data-id="clzcifdqi00041gvegwn7a78d" data-title="ML(4)_分类算法_1" class="article-share-link"><span class="fa fa-share">分享</span></a>
       
       
       
@@ -214,10 +284,10 @@
 
 
   
-    <article id="post-Pandas-III" class="h-entry article article-type-post" itemprop="blogPost" itemscope itemtype="https://schema.org/BlogPosting">
+    <article id="post-ML-3" class="h-entry article article-type-post" itemprop="blogPost" itemscope itemtype="https://schema.org/BlogPosting">
   <div class="article-meta">
-    <a href="/2024/07/26/Pandas-III/" class="article-date">
-  <time class="dt-published" datetime="2024-07-26T07:59:55.000Z" itemprop="datePublished">2024-07-26</time>
+    <a href="/2024/07/30/ML-3/" class="article-date">
+  <time class="dt-published" datetime="2024-07-30T08:29:25.000Z" itemprop="datePublished">2024-07-30</time>
 </a>
     
   </div>
@@ -228,7 +298,7 @@
         
   
     <h1 itemprop="name">
-      <a class="p-name article-title" href="/2024/07/26/Pandas-III/">Pandas(III)</a>
+      <a class="p-name article-title" href="/2024/07/30/ML-3/">ML(3)_特征降维</a>
     </h1>
   
 
@@ -236,17 +306,73 @@
     
     <div class="e-content article-entry" itemprop="articleBody">
       
-        <h4 id="处理NAN缺失值"><a href="#处理NAN缺失值" class="headerlink" title="处理NAN缺失值"></a>处理NAN缺失值</h4><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 判断是否存在缺失值</span></span><br><span class="line">temp1 = pd.isnull(data) <span class="comment"># bool数组</span></span><br><span class="line">temp2 = pd.notnull(data)</span><br><span class="line">temp3 = temp1.<span class="built_in">any</span>() <span class="comment"># 找到存在缺失值的字段</span></span><br><span class="line">temp4 = temp2.<span class="built_in">all</span>()</span><br><span class="line"><span class="keyword">import</span> numpy <span class="keyword">as</span> np</span><br><span class="line">np.<span class="built_in">any</span>(temp1)   <span class="comment"># -&gt; bool</span></span><br><span class="line">np.<span class="built_in">all</span>(temp2)</span><br><span class="line"></span><br><span class="line"><span class="comment"># 删除缺失值</span></span><br><span class="line">data1 = data.dropna(inplace=<span class="literal">False</span>)   <span class="comment"># 默认按行删除,inplace=False返回新的DataFrame对象</span></span><br><span class="line"></span><br><span class="line"><span class="comment"># 替换缺失值</span></span><br><span class="line">data2 = data[<span class="string">&quot;sale&quot;</span>].fillna(data[<span class="string">&quot;sale&quot;</span>].mean(),inplace=<span class="literal">False</span>)  <span class="comment"># 用.mean()平均值替换,inplace=False同上</span></span><br></pre></td></tr></table></figure>
-<h4 id="处理非NAN缺失值"><a href="#处理非NAN缺失值" class="headerlink" title="处理非NAN缺失值"></a>处理非NAN缺失值</h4><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> numpy <span class="keyword">as</span> np</span><br><span class="line">data1 = data.replace(to_replace=<span class="string">&quot;?&quot;</span>,value=np.nan)   <span class="comment"># 假设默认缺失值为&quot;?&quot;,将其替换为NAN缺失值,再利用处理NAN缺失值的方法</span></span><br></pre></td></tr></table></figure>
-<h4 id="数据离散化"><a href="#数据离散化" class="headerlink" title="数据离散化"></a>数据离散化</h4><p>“哑变量”矩阵</p>
-<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line">data = pd.Series([<span class="number">165</span>,<span class="number">174</span>,<span class="number">160</span>,<span class="number">180</span>,<span class="number">159</span>,<span class="number">163</span>,<span class="number">192</span>,<span class="number">184</span>],index=[<span class="string">&#x27;No1:165&#x27;</span>,<span class="string">&#x27;No2:174&#x27;</span>,<span class="string">&#x27;No3:160&#x27;</span>,<span class="string">&#x27;No4:180&#x27;</span>,<span class="string">&#x27;No5:159&#x27;</span>,<span class="string">&#x27;No6:163&#x27;</span>,<span class="string">&#x27;No7:192&#x27;</span>,<span class="string">&#x27;No8:184&#x27;</span>]) <span class="comment"># 创建Series对象</span></span><br><span class="line"></span><br><span class="line">data1 = pd.qcut(data,<span class="number">3</span>) <span class="comment"># 自动分3组</span></span><br><span class="line">data1 = pd.cut(data,[<span class="number">150</span>,<span class="number">165</span>,<span class="number">180</span>,<span class="number">195</span>])  <span class="comment"># 自定义分组(150,165],(165,180],...</span></span><br><span class="line"></span><br><span class="line">counts_test = data1.value_counts()  <span class="comment"># 分组情况</span></span><br><span class="line"></span><br><span class="line"><span class="comment"># one-hot编码</span></span><br><span class="line">data2 = pd.get_dummies(data1,prefix=<span class="string">&quot;身高&quot;</span>) <span class="comment"># prefix前缀</span></span><br><span class="line"></span><br><span class="line"><span class="comment"># 先分组,再独热</span></span><br></pre></td></tr></table></figure>
-<h4 id="合并处理"><a href="#合并处理" class="headerlink" title="合并处理"></a>合并处理</h4><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">data = pd.concat([data1,data2],axis=<span class="number">1</span>) <span class="comment"># 水平拼接,axis=0竖直拼接会出现字段不一致的NAN值问题</span></span><br><span class="line"></span><br><span class="line"><span class="comment"># 索引连接</span></span><br><span class="line">data = pd.merge(left,right,how=<span class="string">&#x27;inner&#x27;</span>,on=[<span class="string">&#x27;key1&#x27;</span>,<span class="string">&#x27;key2&#x27;</span>])  <span class="comment"># 默认内连接:两表以相同键相同数据连接,空缺会自动补足</span></span><br><span class="line">data = pd.merge(left,right,how=<span class="string">&#x27;left&#x27;</span>,on=[<span class="string">&#x27;key1&#x27;</span>,<span class="string">&#x27;key2&#x27;</span>])   <span class="comment"># 左连接:保证left完整,以right对应left的键连接,缺失值为NAN;右连接类比</span></span><br><span class="line">data = pd.merge(left,right,how=<span class="string">&#x27;outer&#x27;</span>,on=[<span class="string">&#x27;key1&#x27;</span>,<span class="string">&#x27;key2&#x27;</span>])  <span class="comment"># 外连接:left,right都需要完整,以对应键连接,缺失值为NAN</span></span><br></pre></td></tr></table></figure>
-<h4 id="交叉表与透视表"><a href="#交叉表与透视表" class="headerlink" title="交叉表与透视表"></a>交叉表与透视表</h4><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># pandas有专门处理日期的API</span></span><br><span class="line"></span><br><span class="line"><span class="comment"># 交叉表</span></span><br><span class="line">data = pd.crosstab(data[<span class="string">&#x27;month&#x27;</span>],data[<span class="string">&#x27;year&#x27;</span>])  <span class="comment"># 常用于对比</span></span><br><span class="line"></span><br><span class="line"><span class="comment"># 透视表</span></span><br><span class="line">data = pd.table([<span class="string">&#x27;year&#x27;</span>],index=[<span class="string">&#x27;month&#x27;</span>])   <span class="comment"># 直接显示涨幅比例</span></span><br></pre></td></tr></table></figure>
-<h4 id="分组与聚合"><a href="#分组与聚合" class="headerlink" title="分组与聚合"></a>分组与聚合</h4><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 分组</span></span><br><span class="line">test = data.groupby(by=<span class="string">&#x27;year&#x27;</span>) <span class="comment"># 分组对象,以year分组,也可以传入列表多字段分组</span></span><br><span class="line"></span><br><span class="line"><span class="comment"># 聚合</span></span><br><span class="line">result = test[<span class="string">&#x27;sale&#x27;</span>].<span class="built_in">max</span>() <span class="comment"># 选取sale字段取最大值聚合</span></span><br><span class="line"></span><br><span class="line"><span class="comment"># 先分组再聚合,Series也适用</span></span><br></pre></td></tr></table></figure>
+        <p>某些限定条件下,降低随机变量(特征)个数,得到一组”不相关”主变量</p>
+<h3 id="特征选择"><a href="#特征选择" class="headerlink" title="特征选择"></a>特征选择</h3><p>从原有特征中找出主要特征</p>
+<ul>
+<li>方法<ul>
+<li>Filter(过滤式):探究特征本身特点,特征与特征和目标值之间关联<ul>
+<li>方差选择法: 低方差特征过滤(组内)</li>
+<li>相关系数(组间)</li>
+</ul>
+</li>
+<li>Embedded(嵌入式):算法选择特征,特征与目标值之间关联<ul>
+<li>决策树: 信息熵,信息增益</li>
+<li>正则化: L1,L2</li>
+<li>深度学习: 卷积等</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+<h4 id="Filter-过滤式"><a href="#Filter-过滤式" class="headerlink" title="Filter(过滤式)"></a>Filter(过滤式)</h4><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> sklearn.feature_selection</span><br></pre></td></tr></table></figure>
+<ul>
+<li>低方差特征过滤<ul>
+<li><code>sklearn.feature_selection.VarianceThreshold(threshold=0.0)</code>: 删除所有低方差(threshold阈值)特征<ul>
+<li><code>VarianceThreshold.fit_transform(X)</code>: X ndarray数组,返回值: 训练集差异低于threshold的特征将被删除,默认保留所有非0方差特征(相同值特征)</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">from</span> scipy.stats <span class="keyword">import</span> pearsonr</span><br></pre></td></tr></table></figure>
+<ul>
+<li>相关系数: 皮尔逊相关系数,反映变量间相关系数密切程度的统计指标<ul>
+<li>r &#x3D; (n<em>Σx</em>y - Σx<em>Σy) &#x2F; [(√n</em>Σx^2 - (Σx)^2) * (√n*Σy^2 - (Σy)^2)]</li>
+<li>-1 &lt;&#x3D; r &lt;&#x3D;1<ul>
+<li>r&gt;0,两变量正相关;r&lt;0负相关</li>
+<li>|r|&#x3D;1,两变量完全相关;r&#x3D;0,无相关关系</li>
+<li>0 &lt;&#x3D; |r| &lt;&#x3D; 1,两变量存在一定程度相关,|r|越靠近1两变量关系越密切,靠近0相关性越弱</li>
+<li>|r|&lt;0.4低度相关,0.4 &lt;&#x3D; |r| &lt; 0.7显著性相关,0.7 &lt;&#x3D; |r| &lt; 1高度线性相关</li>
+</ul>
+</li>
+<li><code>r = pearsonr(x,y)</code>: x,y某两个特征</li>
+</ul>
+</li>
+</ul>
+<p>若特征和特征之间相关性很高</p>
+<ol>
+<li>选一个作为代表</li>
+<li>相同权重,加权求和</li>
+<li>主成分分析</li>
+</ol>
+<h3 id="主成分分析"><a href="#主成分分析" class="headerlink" title="主成分分析"></a>主成分分析</h3><p>高维数据 -&gt; 低维数据,减少冗余,可能会舍弃原有数据或创建新的变量;<br>数据维数压缩,尽可能降低原数据的维数(复杂度),损失少量信息</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> sklearn.decomposition</span><br></pre></td></tr></table></figure>
+<ul>
+<li><code>sklearn.decomposition.PCA(n_components=None)</code>: 数据分解为较低维数空间<ul>
+<li>n_components<ul>
+<li>小数: 表示保留信息的百分比</li>
+<li>整数: 减少到多少特征</li>
+</ul>
+</li>
+<li><code>PCA.fit_transform(X)</code>: X ndarray数组, 返回转换后指定维度的array</li>
+</ul>
+</li>
+</ul>
+
       
     </div>
     <footer class="article-footer">
-      <a data-url="https://by2095163684.github.io/2024/07/26/Pandas-III/" data-id="clzb0pyle000cyove8axueq4f" data-title="Pandas(III)" class="article-share-link"><span class="fa fa-share">分享</span></a>
+      <a data-url="https://by2095163684.github.io/2024/07/30/ML-3/" data-id="clzcifdqi00031gveh0ro9mh7" data-title="ML(3)_特征降维" class="article-share-link"><span class="fa fa-share">分享</span></a>
       
       
       
@@ -262,7 +388,7 @@
 
   <nav id="page-nav">
     
-    <a class="extend prev" rel="prev" href="/">&laquo; 上一页</a><a class="page-number" href="/">1</a><span class="page-number current">2</span><a class="page-number" href="/page/3/">3</a><a class="page-number" href="/page/4/">4</a><a class="page-number" href="/page/5/">5</a><a class="extend next" rel="next" href="/page/3/">下一页 &raquo;</a>
+    <a class="extend prev" rel="prev" href="/">&laquo; 上一页</a><a class="page-number" href="/">1</a><span class="page-number current">2</span><a class="page-number" href="/page/3/">3</a><a class="page-number" href="/page/4/">4</a><span class="space">&hellip;</span><a class="page-number" href="/page/6/">6</a><a class="extend next" rel="next" href="/page/3/">下一页 &raquo;</a>
   </nav>
 
 </section>
@@ -294,23 +420,23 @@
       <ul>
         
           <li>
+            <a href="/2024/08/02/ML-8/">ML(8)_无监督学习</a>
+          </li>
+        
+          <li>
+            <a href="/2024/08/02/ML-7/">ML(7)_逻辑回归</a>
+          </li>
+        
+          <li>
+            <a href="/2024/08/02/ML-6/">ML(6)_线性回归</a>
+          </li>
+        
+          <li>
             <a href="/2024/08/01/ML-5/">ML(5)_分类算法_2</a>
           </li>
         
           <li>
             <a href="/2024/07/31/ML-4/">ML(4)_分类算法_1</a>
-          </li>
-        
-          <li>
-            <a href="/2024/07/30/ML-3/">ML(3)_特征降维</a>
-          </li>
-        
-          <li>
-            <a href="/2024/07/29/ML-2/">ML(2)_特征预处理</a>
-          </li>
-        
-          <li>
-            <a href="/2024/07/29/ML-1/">ML(1)_特征提取</a>
           </li>
         
       </ul>
